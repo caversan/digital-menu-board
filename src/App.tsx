@@ -6,6 +6,7 @@ import { ErrorBoundary, MenuBoardLoading, ErrorLoading } from './shared/componen
 import { DigitalSignagePlayer } from './features/playlist/DigitalSignagePlayer';
 import { useMenuData, useOnline } from './shared/hooks';
 import { logger } from './shared/utils/logger';
+import { WebOSRemoteControl } from './webos';
 
 interface AppProps {
   restaurantId?: string;
@@ -21,13 +22,36 @@ function App({ restaurantId = 'default', displayId, mode = 'playlist' }: AppProp
     console.log('📱 App initialized', { 
       isOnline, 
       environment: (import.meta as any).env.MODE,
-      hasSettings: !!settings
+      hasSettings: !!settings,
+      isLoading,
+      error
     });
     logger.info('App initialized', { 
       isOnline, 
-      environment: (import.meta as any).env.MODE 
+      environment: (import.meta as any).env.MODE,
+      isLoading,
+      error
     });
-  }, [isOnline, settings]);
+  }, [isOnline, settings, isLoading, error]);
+
+  // Initialize WebOS Remote Control if running on webOS TV
+  React.useEffect(() => {
+    if ((window as any).webOS) {
+      console.log('📺 WebOS detectado - Inicializando controle remoto');
+      WebOSRemoteControl.getInstance((import.meta as any).env.DEV);
+    }
+  }, []);
+
+  // Auto-retry loading if stuck for too long
+  React.useEffect(() => {
+    if (isLoading) {
+      const timeout = setTimeout(() => {
+        console.warn('⚠️ App ainda carregando após 5s, tentando refresh...');
+        refresh();
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [isLoading, refresh]);
 
   console.log('🔍 App state:', { isLoading, hasSettings: !!settings, hasError: !!error });
 

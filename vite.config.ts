@@ -15,18 +15,29 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    host: true
+    host: true,
+    // Acessível de qualquer interface (necessário para TV webOS)
+    strictPort: false
   },
   build: {
     outDir: 'dist',
     sourcemap: false,
     minify: 'terser',
+    // Target ES2018 para compatibilidade com webOS 6+
+    target: 'es2018',
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
           ui: ['styled-components']
         }
+      }
+    },
+    // Otimizações para webOS (memória limitada)
+    terserOptions: {
+      compress: {
+        drop_console: true,  // Remove console.log em produção
+        drop_debugger: true
       }
     }
   },

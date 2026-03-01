@@ -1,0 +1,39 @@
+{
+  "id": "com.example.digital-menu-board",
+  "version": "1.0.0",
+  "vendor": "Digital Menu Board",
+  "type": "web",
+  "main": "index.html",
+  "title": "Digital Menu Board",
+  "subtitle": "Sistema de Cardápio Digital para Restaurantes",
+  "icon": "icon.png",
+  "bgImage": "",
+  "largeIcon": "",
+  "uiRevision": 2,
+  "requiredPermissions": [],
+  "privilegedJSObjects": [],
+  "windowGroups": [
+    {
+      "name": "main",
+      "layers": [
+        {
+          "name": "default"
+        }
+      ]
+    }
+  ],
+  "appDescription": "Exibe cardápios digitais em TVs LG com suporte a múltiplas categorias, imagens de produtos e controle remoto simplificado.",
+  "color": "#1a1a1a",
+  "bgColor": "#000000",
+  "transparentBackground": false,
+  "denyHWAccess": false,
+  "healthCheck": {
+    "memory": 50000000,
+    "watchdog": true
+  },
+  "requestedPermissions": [
+    "device.info",
+    "com.webos.service.keymanager"
+  ],
+  "serviceId": "com.example.digital-menu-board.service"
+}

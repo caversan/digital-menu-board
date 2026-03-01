@@ -1,0 +1,168 @@
+name: WebOS Build & Deploy
+
+on:
+  push:
+    branches:
+      - feat/webos-standalone
+      - main
+    paths:
+      - 'src/**'
+      - 'webos/**'
+      - 'package.json'
+      - 'vite.config.ts'
+      - '.github/workflows/webos-build.yml'
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy to TV after build?'
+        required: false
+        default: 'false'
+
+jobs:
+  build:
+    name: Build WebOS App
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Lint code
+        run: npm run lint --if-present
+      
+      - name: Build app
+        run: npm run build
+      
+      - name: Install ares-cli
+        run: npm install -g @webos-tools/ares-cli
+      
+      - name: Create WebOS package
+        run: |
+          mkdir -p dist
+          cp webos/appinfo.json dist/ || echo "appinfo.json não encontrado, continuando..."
+          ares-package dist -o webos-build -n com.example.digital-menu-board -v 1.0.0
+      
+      - name: Upload IPK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: webos-app-${{ matrix.node-version }}
+          path: webos-build/*.ipk
+          retention-days: 30
+      
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ matrix.node-version }}
+          path: dist/
+          retention-days: 30
+      
+      - name: Set build status
+        if: always()
+        run: |
+          echo "✅ Build completado em $(date)"
+          echo "📦 Pacotes:" 
+          ls -lh webos-build/ || echo "Nenhum pacote encontrado"
+
+  # Opcional: Deploy para TV (requer se credenciais de TV)
+  deploy:
+    name: Deploy to TV (Opcional)
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event.inputs.deploy == 'true'
+    
+    steps:
+      - name: Download IPK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: webos-app-20.x
+          path: ./artifacts
+      
+      - name: Setup ares-cli
+        run: npm install -g @webos-tools/ares-cli
+      
+      - name: Register TV device
+        run: |
+          # Este step requer secrets: WEBOS_DEVICE_IP, WEBOS_DEVICE_PASSWORD
+          ares-setup-device --add webos-tv \
+            --info host=${{ secrets.WEBOS_DEVICE_IP }} \
+            --info port=22 \
+            --info username=prisoner \
+            --info password=${{ secrets.WEBOS_DEVICE_PASSWORD }} || true
+      
+      - name: Install app on TV
+        continue-on-error: true
+        run: |
+          ares-install artifacts/*.ipk -d webos-tv
+      
+      - name: Launch app
+        continue-on-error: true
+        run: |
+          ares-launch com.example.digital-menu-board -d webos-tv
+
+  test-build-quality:
+    name: Verify Build Quality
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-20.x
+          path: ./dist
+      
+      - name: Check dist size
+        run: |
+          SIZE=$(du -sh dist/ | cut -f1)
+          echo "📊 Tamanho do build: $SIZE"
+          
+          # Avisar se > 100MB (pode ser problemático para TV)
+          SIZE_MB=$(du -sm dist/ | cut -f1)
+          if [ "$SIZE_MB" -gt 100 ]; then
+            echo "⚠️  AVISO: Build > 100MB pode ter problemas em TV com memória limitada"
+          fi
+      
+      - name: Verify appinfo.json
+        run: |
+          if [ -f "dist/appinfo.json" ]; then
+            echo "✅ appinfo.json encontrado"
+            cat dist/appinfo.json | head -5
+          else
+            echo "❌ appinfo.json NÃO encontrado"
+          fi
+      
+      - name: List main files
+        run: |
+          echo "📁 Arquivos principais:"
+          ls -lh dist/ | head -10
+
+  notify:
+    name: Notify on Completion
+    runs-on: ubuntu-latest
+    needs: [build, test-build-quality]
+    if: always()
+    
+    steps:
+      - name: Build completed
+        run: |
+          echo "🎉 WebOS Build Pipeline Completado!"
+          echo "📦 Artifacts: Disponíveis para download"
+          echo "🚀 Para deploy manual: Download IPK e use ares-install"

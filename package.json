@@ -9,7 +9,14 @@
     "build": "vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "webos:build": "npm run build",
+    "webos:package": "ares-package dist -o webos-build -n com.example.digital-menu-board -v 1.0.0",
+    "webos:install": "ares-install webos-build/*.ipk -d tv",
+    "webos:launch": "ares-launch com.example.digital-menu-board -d tv",
+    "webos:debug": "ares-launch com.example.digital-menu-board -d tv --open-debugger",
+    "webos:log": "ares-log -d tv -a com.example.digital-menu-board -f",
+    "webos:emulator": "ares-emulator --start"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -27,6 +34,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "terser": "^5.46.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vitest": "^1.4.0"

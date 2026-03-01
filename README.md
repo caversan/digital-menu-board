@@ -484,6 +484,31 @@ docker build -t menu-board .
 docker run -p 80:3000 menu-board
 ```
 
+### 📺 WebOS LG TV (New!)
+
+**Suporte para webOS 6.0+ (LG TVs 2018+)**
+
+```bash
+# Quick start (veja README.WEBOS.md para detalhes)
+npm run webos:build         # Build React
+npm run webos:package       # Empacotar IPK
+npm run webos:install       # Instalar na TV
+npm run webos:launch        # Lançar app
+
+# Ou tudo de uma vez:
+# Windows: .\webos-build.ps1 full tv
+# macOS/Linux: bash ./webos-build.sh full tv
+```
+
+**Recursos webOS:**
+- ✅ Controle remoto **bloqueado** (EXIT/CLOSE only)
+- ✅ Modo Kiosk (restrições de sistema)
+- ✅ Otimizações para TV (fontes grandes, memória limitada)
+- ✅ Multi-método close (4 fallbacks)
+- ✅ Debug via Chrome DevTools
+
+📖 [Guia Completo](README.WEBOS.md) | 📖 [Documentação Técnica](WEBOS_IMPLEMENTATION.md) | ✅ [Checklist Deploy](WEBOS_DEPLOYMENT_CHECKLIST.md)
+
 ### Backend - Setup Local (futuro)
 ```bash
 # 1. Start services
