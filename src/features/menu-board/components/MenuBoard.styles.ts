@@ -84,22 +84,25 @@ export const ItemsGrid = styled.div<{ columns: number }>`
   overflow: hidden;
 `;
 
-export const MenuItem = styled.div<{ $highlighted?: boolean }>`
+export const MenuItem = styled.div<{ $highlighted?: boolean; $hasImage?: boolean }>`
   background: ${({ theme }) => theme.colors.surface};
   border-radius: 20px;
-  padding: 1.5rem;
+  padding: 1rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: ${({ $hasImage }) => ($hasImage ? '150px 1fr' : '1fr')};
+  gap: 1rem;
+  align-items: stretch;
   transition: all 0.3s ease;
 `;
 
 export const ItemImage = styled.img`
-  width: 100%;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   border-radius: 12px;
-  margin-bottom: 1.5rem;
+  margin: 0;
+  justify-self: start;
 `;
 
 export const ItemContent = styled.div`

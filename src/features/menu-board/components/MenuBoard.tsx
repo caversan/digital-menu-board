@@ -71,7 +71,11 @@ export const MenuBoard: React.FC<MenuBoardProps> = ({ settings }) => {
         
         <ItemsGrid columns={layout.columns}>
           {categoryItems.map((item) => (
-            <MenuItem key={item.id} $highlighted={item.isHighlighted}>
+            <MenuItem
+              key={item.id}
+              $highlighted={item.isHighlighted}
+              $hasImage={layout.showImages && !!item.imageUrl}
+            >
               {layout.showImages && item.imageUrl && (
                 <ItemImage src={item.imageUrl} alt={item.name} />
               )}
