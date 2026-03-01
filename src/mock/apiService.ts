@@ -200,7 +200,7 @@ const mockMediaItems: MediaItem[] = [
   {
     id: 'media-002', 
     type: 'video',
-    url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
     title: '🎬 Experiência Gastronômica Única',
     duration: 7, // Será ignorado - vídeo toca até o fim
     displayOrder: 2,
