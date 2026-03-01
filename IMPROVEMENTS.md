@@ -252,6 +252,35 @@ logger.error('API call failed', { error: errorObj });
 5. **PWA** - Suporte offline completo com Service Workers
 6. **Performance Monitoring** - Integração com ferramentas de monitoramento
 
+## 🎨 Melhorias Visuais Recentes (Março 2026)
+
+### 7. **Layout Horizontal com Produto em Destaque** ✓
+- Layout 50/50 em modo landscape (horizontal)
+  - Coluna esquerda: Lista produtos em coluna única
+  - Coluna direita: Produto destacado (primeiro com `isHighlighted` ou primeiro da lista)
+- FeaturedProductCard com imagem grande, descrição completa e preço destacado
+- Ajustes responsivos para modo portrait
+- Card do produto destaque ocupa 100% da largura da coluna
+
+### 8. **Backgrounds por Categoria** ✓ 
+- Interface `MenuCategory` estendida com propriedade `backgroundImage?: string`
+- BoardContainer aceita prop `$backgroundImage` para background dinâmico
+- 4 imagens de fundo baixadas do Unsplash:
+  - `bg-entradas.jpg` (entradas)
+  - `bg-pratos.jpg` (pratos principais)  
+  - `bg-sobremesas.jpg` (sobremesas)
+  - `bg-bebidas.jpg` (bebidas)
+- Overlay escuro (opacity: 0.75) para melhor legibilidade
+- Transição suave entre backgrounds ao trocar categorias
+
+### 9. **Header com Bandeira Italiana** ✓
+- Background inspirado na bandeira da Itália:
+  - Verde (#00880d): 5% da largura à esquerda
+  - Branco (#ffffff): 5% da largura
+  - Vermelho (#ac0000): 90% restante
+- Gradiente horizontal `linear-gradient(to right, ...)`
+- Remove complexidade do gradiente anterior
+
 ## 📝 Notas Importantes
 
 - O arquivo `apiService.ts` antigo foi mantido para retrocompatibilidade
@@ -262,5 +291,5 @@ logger.error('API call failed', { error: errorObj });
 
 ---
 
-**Implementado em**: 28 de Fevereiro de 2026
+**Implementado em**: 1 de Março de 2026
 **Versão**: 1.0.0

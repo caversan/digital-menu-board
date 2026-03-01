@@ -3,12 +3,36 @@
 Sistema escalável de cardápio digital para restaurantes com sincronização em tempo real para múltiplas TVs.
 
 ## 📚 Sumário
+- [Funcionalidades Visuais](#funcionalidades-visuais)
 - [Stack Tecnológico](#stack-tecnológico)
 - [Arquitetura](#arquitetura)
 - [Perguntas-Chave Respondidas](#perguntas-chave-respondidas)
 - [Checklist de Requisitos](#checklist-de-requisitos)
 - [Como Usar](#como-usar)
 - [Modo Kiosk](#modo-kiosk)
+
+---
+
+## 🎨 Funcionalidades Visuais
+
+### Layout Horizontal com Produto em Destaque
+- **Divisão 50/50**: Em modo landscape, tela dividida em 2 colunas
+  - **Esquerda**: Lista de produtos em coluna única com scroll
+  - **Direita**: Produto destacado com imagem grande, descrição completa e preço realçado
+- **Produto Destaque**: Prioriza itens com `isHighlighted: true`, senão usa primeiro da categoria
+- **Responsivo**: Adapta automaticamente para portrait (destaque no topo)
+
+### Backgrounds por Categoria
+- Cada categoria tem imagem de fundo personalizada (baixadas do Unsplash)
+- Overlay escuro (75% opacity) garante legibilidade
+- Transição suave ao trocar categorias
+- Imagens otimizadas (1920x1080) para TV
+
+### Header Temático Italiano
+- Inspirado na bandeira da Itália:
+  - 🟢 Verde (5%) + ⚪ Branco (5%) + 🔴 Vermelho (90%)
+- Logo do restaurante + nome + categoria atual
+- Design clean e profissional
 
 ---
 
@@ -524,7 +548,7 @@ O projeto inclui suporte completo para modo **Kiosk** usando **Tauri**, ideal pa
 
 ```bash
 # Desenvolvimento com hot reload
-npm run tauri dev
+npm run tauri-dev
 
 # Build para produção
 npm run tauri build
@@ -564,22 +588,34 @@ Consulte [TAURI_KIOSK_SETUP.md](TAURI_KIOSK_SETUP.md) para documentação comple
 
 ## 🔄 Roadmap
 
-### v1.0 (MVP - Atual) ✅
+### v1.1 (Atual - Março 2026) ✅
+- [x] Layout horizontal com produto em destaque (50/50)
+- [x] Backgrounds personalizados por categoria
+- [x] Header temático italiano
+- [x] FeaturedProductCard component
+- [x] Tauri kiosk mode completo
+- [x] Geração automática de ícones
+- [x] Merge com feat/tauri-standalone
+
+### v1.0 (MVP - Fevereiro 2026) ✅
 - [x] Frontend React com playlist
 - [x] Mockados com simulação de API
-- [x] Temas dinâmicos
+- [x] Temas dinâmicos (4 temas)
 - [x] Responsivo para TV
+- [x] Componentes compartilhados
+- [x] Service layer abstrato
+- [x] Zustand store com persistência
+
+### v1.2 (Production Ready) - Próximo
 - [ ] Backend Express/Node.js
 - [ ] WebSocket real-time
-
-### v1.1 (Production Ready)
 - [ ] Health checks + monitoring
 - [ ] Rate limiting
 - [ ] Observability (dashboards)
 - [ ] Audit logs
 - [ ] Backup automático
 
-### v2.0 (Enterprise)
+### v2.0 (Enterprise) - Futuro
 - [ ] Multi-region replication
 - [ ] Fine-grained RBAC
 - [ ] SSO (SAML/OAuth2)
@@ -609,5 +645,5 @@ Consulte [TAURI_KIOSK_SETUP.md](TAURI_KIOSK_SETUP.md) para documentação comple
 ## 📝 Licença
 MIT
 
-**Última atualização**: Março 2026  
+**Última atualização**: 1 de Março de 2026  
 **Versão**: 1.0.0 MVP

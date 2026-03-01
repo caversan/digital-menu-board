@@ -58,7 +58,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 npm run tauri build
 
 # Opção 2: Dev com hot reload
-npm run tauri dev
+npm run tauri-dev
 
 # Resultado esperado:
 # ✓ dist/ (frontend compilado)
@@ -66,6 +66,28 @@ npm run tauri dev
 # ✓ src-tauri/target/release/bundle/msi/DigitalMenuBoard_1.0.0_x64_en-US.msi
 # ✓ src-tauri/target/release/bundle/nsis/DigitalMenuBoard_1.0.0_x64-setup.exe
 ```
+
+### Gerando Ícones da Aplicação
+Se a pasta `src-tauri/icons/` não existir, gere os ícones:
+
+```powershell
+# 1. Baixe uma imagem base (PNG 512x512 ou maior)
+# Pode usar qualquer imagem, aqui usamos um ícone de restaurante
+Invoke-WebRequest -Uri "https://img.icons8.com/color/512/restaurant.png" `
+  -OutFile "app-icon.png" -UserAgent "Mozilla/5.0"
+
+# 2. Gere todos os formatos necessários (Windows, macOS, iOS, Android)
+npm run tauri icon app-icon.png
+
+# Resultado: 
+# ✓ src-tauri/icons/icon.ico (Windows)
+# ✓ src-tauri/icons/icon.icns (macOS)
+# ✓ src-tauri/icons/*.png (vários tamanhos)
+# ✓ src-tauri/icons/ios/ (ícones iOS)
+# ✓ src-tauri/icons/android/ (ícones Android)
+```
+
+**Nota**: Você pode usar qualquer imagem PNG como base. Recomendado: 512x512px ou maior.
 
 ---
 
@@ -121,7 +143,7 @@ src-tauri/
 npm run dev
 
 # Terminal 2: Inicia a janela Tauri
-npm run tauri dev
+npm run tauri-dev
 
 # Resultado: Janela fullscreen com segurança ativa
 # Teste: Tenta Alt+F4, F12, Ctrl+R, right-click → nada acontece ✅
