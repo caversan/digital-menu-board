@@ -38,20 +38,28 @@ export const DigitalSignagePlayer: React.FC<DigitalSignagePlayerProps> = ({
     }
   }, []);
 
+  // Always show menu board if no current category (fallback)
+  const shouldShowMenuBoard = !isShowingMedia;
+  const displayCategory = currentCategory || settings.menuData?.categories[0];
+
   return (
     <Container onKeyDown={handleKeyPress} tabIndex={0}>
-      <CategoryDisplay isVisible={!isShowingMedia}>
-        {currentCategory && (
+      <CategoryDisplay isVisible={shouldShowMenuBoard}>
+        {displayCategory && settings.menuData ? (
           <MenuBoard
             settings={{
               ...settings,
-              activeCategory: currentCategory.id
+              activeCategory: displayCategory.id
             }}
           />
+        ) : (
+          <FallbackDisplay>
+            <h1>🍽️ Carregando menu...</h1>
+          </FallbackDisplay>
         )}
       </CategoryDisplay>
 
-      <MediaDisplay isVisible={isShowingMedia}>
+      <MediaDisplay isVisible={isShowingMedia && !!currentMedia}>
         {currentMedia && currentMedia.type === 'video' && (
           <video
             src={currentMedia.url}
@@ -196,5 +204,20 @@ const DebugControls = styled.div<{ visible: boolean }>`
       background: #666;
       cursor: not-allowed;
     }
+  }
+`;
+
+const FallbackDisplay = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  font-size: 2rem;
+  
+  h1 {
+    margin: 0;
   }
 `;

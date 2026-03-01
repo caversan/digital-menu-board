@@ -1,102 +1,78 @@
 import React from 'react';
 import { ThemeProvider } from './shared/themes/ThemeProvider';
-import { modernTheme } from './shared/themes/presets';
-import { ApiService } from './mock/ApiService';
-import { DigitalSignagePlayer } from './features/playlist/DigitalSignagePlayer';
-import type { MenuBoardSettings } from './shared/types';
 import { GlobalStyles } from './shared/themes/GlobalStyles';
+import { modernTheme } from './shared/themes/presets';
+import { ErrorBoundary, MenuBoardLoading, ErrorLoading } from './shared/components';
+import { DigitalSignagePlayer } from './features/playlist/DigitalSignagePlayer';
+import { useMenuData, useOnline } from './shared/hooks';
+import { logger } from './shared/utils/logger';
 
 function App() {
-  const [settings, setSettings] = React.useState<MenuBoardSettings | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
+  const { settings, isLoading, error, refresh } = useMenuData();
+  const isOnline = useOnline();
 
   React.useEffect(() => {
-    const loadMenuData = async () => {
-      try {
-        const menuData = await ApiService.getMenuData();
-        const mediaItems = await ApiService.getMediaItems();
+    console.log('📱 App initialized', { 
+      isOnline, 
+      environment: process.env.NODE_ENV,
+      hasSettings: !!settings
+    });
+    logger.info('App initialized', { 
+      isOnline, 
+      environment: process.env.NODE_ENV 
+    });
+  }, [isOnline, settings]);
 
-        const menuSettings: MenuBoardSettings = {
-          restaurantId: '1',
-          theme: modernTheme,
-          layout: {
-            type: 'grid',
-            itemsPerPage: 8,
-            columns: 2,
-            showPrices: true,
-            showDescriptions: true,
-            showImages: true
-          },
-          playlist: {
-            enabled: true,
-            categoryDisplayTime: 8000,
-            mediaDisplayTime: 3000,
-            order: menuData.categories.map(cat => cat.id),
-            mediaItems: mediaItems
-          },
-          menuData
-        };
+  console.log('🔍 App state:', { isLoading, hasSettings: !!settings, hasError: !!error });
 
-        setSettings(menuSettings);
-      } catch (err) {
-        console.error('Erro ao carregar dados:', err);
-        setError('Erro ao carregar dados do menu. Verifique a conexão.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadMenuData();
-  }, []);
-
-  if (loading) {
+  // Show loading state
+  if (isLoading) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        background: '#000',
-        color: '#fff',
-        fontSize: '1.2rem'
-      }}>
-        🍽️ Carregando menu...
-      </div>
+      <ThemeProvider theme={modernTheme}>
+        <GlobalStyles />
+        <MenuBoardLoading message="🍽️ Carregando menu..." />
+      </ThemeProvider>
     );
   }
 
+  // Show error state
   if (error) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        background: '#000',
-        color: '#ff4444',
-        fontSize: '1.2rem',
-        textAlign: 'center',
-        padding: '2rem'
-      }}>
-        ⚠️ {error}
-      </div>
+      <ThemeProvider theme={modernTheme}>
+        <GlobalStyles />
+        <ErrorLoading message={`⚠️ ${error}`} />
+      </ThemeProvider>
     );
   }
 
+  // No settings available
   if (!settings) {
-    return null;
+    return (
+      <ThemeProvider theme={modernTheme}>
+        <GlobalStyles />
+        <ErrorLoading message="⚠️ Nenhuma configuração disponível" />
+      </ThemeProvider>
+    );
   }
 
   return (
-    <ThemeProvider theme={settings.theme}>
-      <GlobalStyles />
-      <DigitalSignagePlayer
-        settings={settings}
-        showControls={process.env.NODE_ENV === 'development'}
-        autoStart={true}
-      />
-    </ThemeProvider>
+    <ErrorBoundary
+      onError={(error, errorInfo) => {
+        logger.error('App error boundary caught error', {
+          error: error.message,
+          stack: errorInfo.componentStack,
+        });
+      }}
+    >
+      <ThemeProvider theme={settings.theme || modernTheme}>
+        <GlobalStyles />
+        <DigitalSignagePlayer
+          settings={settings}
+          showControls={process.env.NODE_ENV === 'development'}
+          autoStart={true}
+        />
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 

@@ -1,6 +1,8 @@
-import type { MenuData, MediaItem } from '../shared/types';
+import { BaseMenuService, MenuServiceConfig } from '../shared/services/MenuService';
+import type { MenuData, MediaItem, ApiResponse } from '../shared/types';
+import { logger } from '../shared/utils/logger';
 
-// Mock data com conteúdo rico e visual
+// Mock data with rich visual content
 const mockRestaurantData: MenuData = {
   restaurantId: 'rest-001',
   name: 'Bella Vista Ristorante',
@@ -98,89 +100,65 @@ const mockRestaurantData: MenuData = {
       imageUrl: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&h=300&fit=crop',
       isActive: true,
       displayOrder: 2,
-      badges: ['🐟 Peixe do Dia', '🌿 Ervas Frescas']
+      badges: ['🐟 Peixe', '🌿 Saudável']
     },
     {
       id: 'item-006',
       categoryId: 'cat-002',
-      name: 'Osso Buco alla Milanese',
-      description: 'Tradicional osso buco lombardo cozido lentamente com safran, served com risotto milanês cremoso',
-      price: 52.90,
-      imageUrl: 'https://images.unsplash.com/photo-1574653430895-46d9c4de8b87?w=500&h=300&fit=crop',
+      name: 'Risotto ai Funghi Porcini',
+      description: 'Arroz arbóreo cremoso com cogumelos porcini importados, manteiga trufada e parmigiano reggiano 24 meses',
+      price: 42.90,
+      imageUrl: 'https://images.unsplash.com/photo-1476124369491-b79d6d9f6a27?w=500&h=300&fit=crop',
       isActive: true,
       displayOrder: 3,
-      badges: ['🇮🇹 Tradicional', '⏰ Cozimento Lento']
+      badges: ['🌱 Vegetariano', '⭐ Especialidade']
     },
-    
     // Sobremesas
     {
       id: 'item-007',
       categoryId: 'cat-003',
-      name: 'Tiramisù della Nonna',
-      description: 'Autêntica sobremesa italiana da receita da nonna com café espresso forte, mascarpone e ladyfingers',
-      price: 19.90,
+      name: 'Tiramisu Tradicional',
+      description: 'Clássico italiano com biscoitos champagne, mascarpone cremoso, café espresso e cacau em pó',
+      price: 22.90,
       imageUrl: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&h=300&fit=crop',
       isActive: true,
       displayOrder: 1,
-      badges: ['🇮🇹 Receita Original', '☕ Com Café']
+      badges: ['⭐ Mais Vendido']
     },
     {
       id: 'item-008',
       categoryId: 'cat-003',
-      name: 'Petit Gâteau Fundente',
-      description: 'Bolinho quente de chocolate belga 70% cacau com centro fundente, acompanha sorvete de vaniglia',
-      price: 22.90,
-      imageUrl: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=500&h=300&fit=crop',
-      isActive: true,
-      displayOrder: 2,
-      isHighlighted: true,
-      badges: ['🍫 Chocolate Belga', '🔥 Servido Quente']
-    },
-    {
-      id: 'item-009',
-      categoryId: 'cat-003',
-      name: 'Panna Cotta ai Frutti di Bosco',
-      description: 'Deliciosa panna cotta artesanal com calda de frutas vermelhas da estação',
-      price: 16.90,
+      name: 'Panna Cotta aos Frutos Vermelhos',
+      description: 'Delicada panna cotta de baunilha com calda artesanal de frutos vermelhos frescos',
+      price: 19.90,
       imageUrl: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&h=300&fit=crop',
       isActive: true,
-      displayOrder: 3,
-      badges: ['🍓 Frutas Frescas', '🥛 Artesanal']
+      displayOrder: 2,
+      badges: ['🌱 Sem Glúten']
     },
-    
     // Bebidas
+    {
+      id: 'item-009',
+      categoryId: 'cat-004',
+      name: 'Vinho Barolo DOCG 2018',
+      description: 'Vinho tinto encorpado da região do Piemonte, notas de cereja e especiarias',
+      price: 185.00,
+      imageUrl: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=500&h=300&fit=crop',
+      isActive: true,
+      displayOrder: 1,
+      isHighlighted: true,
+      badges: ['🍷 Premium']
+    },
     {
       id: 'item-010',
       categoryId: 'cat-004',
-      name: 'Chianti Classico DOCG',
-      description: 'Vinho tinto da Toscana com notas de frutas vermelhas e especiarias - taça 150ml',
-      price: 28.90,
-      imageUrl: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=500&h=300&fit=crop',
-      isActive: true,
-      displayOrder: 1,
-      badges: ['🍷 DOCG', '🇮🇹 Importado']
-    },
-    {
-      id: 'item-011',
-      categoryId: 'cat-004',
-      name: 'Prosecco di Valdobbiadene',
-      description: 'Espumante italiano extra dry com perlage fino e persistente - taça 120ml',
-      price: 24.90,
-      imageUrl: 'https://images.unsplash.com/photo-1549897088-2d8e2f8b5e4d?w=500&h=300&fit=crop',
+      name: 'Limonada Siciliana',
+      description: 'Refrescante limonada com limões sicilianos, hortelã fresca e água mineral',
+      price: 12.90,
+      imageUrl: 'https://images.unsplash.com/photo-1523677011781-c91d1bbe2f9d?w=500&h=300&fit=crop',
       isActive: true,
       displayOrder: 2,
-      badges: ['🥂 Espumante', '✨ Extra Dry']
-    },
-    {
-      id: 'item-012',
-      categoryId: 'cat-004',
-      name: 'Limonatta Siciliana',
-      description: 'Limonada artesanal com limões sicilianos frescos, hortelã e água com gás',
-      price: 12.90,
-      imageUrl: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500&h=300&fit=crop',
-      isActive: true,
-      displayOrder: 3,
-      badges: ['🍋 Natural', '🌿 Hortelã Fresca']
+      badges: ['🌿 Natural']
     }
   ]
 };
@@ -190,17 +168,17 @@ const mockMediaItems: MediaItem[] = [
     id: 'media-001',
     type: 'image',
     url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=1080&fit=crop',
-    title: '✨ Ambiente Aconchegante e Elegante',
-    duration: 5,
+    title: '🎉 Bem-vindo ao Bella Vista Ristorante!',
+    duration: 5000,
     displayOrder: 1,
     isActive: true
   },
   {
-    id: 'media-002', 
+    id: 'media-002',
     type: 'image',
     url: 'https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=1920&h=1080&fit=crop',
     title: '👨‍🍳 Pratos Especiais do Chef Italiano Matteo',
-    duration: 4,
+    duration: 4000,
     displayOrder: 2,
     isActive: true
   },
@@ -209,56 +187,90 @@ const mockMediaItems: MediaItem[] = [
     type: 'image', 
     url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=1920&h=1080&fit=crop',
     title: '🍷 Happy Hour - Terça a Sexta das 17h às 19h - 30% OFF em vinhos!',
-    duration: 6,
+    duration: 6000,
     displayOrder: 3,
-    isActive: true
-  },
-  {
-    id: 'media-004',
-    type: 'image',
-    url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&h=1080&fit=crop',
-    title: '🎉 Reservas para grupos - Espaço exclusivo para eventos especiais',
-    duration: 4,
-    displayOrder: 4,
-    isActive: true
-  },
-  {
-    id: 'media-005',
-    type: 'image',
-    url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=1920&h=1080&fit=crop',
-    title: '🍝 Massa fresca feita na casa diariamente - Tradição italiana autêntica',
-    duration: 5,
-    displayOrder: 5,
     isActive: true
   }
 ];
 
-// Simulação de API com delays realistas
-export class ApiService {
-  private static delay(ms: number = 1000): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+/**
+ * Mock implementation of MenuService for development and testing
+ * Simulates realistic API delays and responses
+ */
+export class MockMenuService extends BaseMenuService {
+  private simulateNetworkDelay: boolean;
+
+  constructor(config: MenuServiceConfig = {}, simulateDelay: boolean = true) {
+    super(config);
+    this.simulateNetworkDelay = simulateDelay;
   }
 
-  static async getMenuData(): Promise<MenuData> {
+  private async delay(ms: number = 800): Promise<void> {
+    if (this.simulateNetworkDelay) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  }
+
+  async getMenuData(restaurantId: string = 'default'): Promise<MenuData> {
+    logger.info('MockMenuService: Fetching menu data', { restaurantId });
+    console.log('🔄 MockMenuService: Carregando dados do menu...');
+    
     await this.delay(800);
-    return Promise.resolve(mockRestaurantData);
+    
+    // Simulate occasional errors in development
+    if (Math.random() < 0.05 && this.simulateNetworkDelay) {
+      logger.error('MockMenuService: Simulated error');
+      throw new Error('Network error (simulated)');
+    }
+
+    console.log('✅ MockMenuService: Menu data ready', { 
+      restaurantName: mockRestaurantData.name,
+      categories: mockRestaurantData.categories.length 
+    });
+    logger.info('MockMenuService: Menu data fetched successfully');
+    return { ...mockRestaurantData };
+  }
+
+  async getMediaItems(restaurantId: string = 'default'): Promise<MediaItem[]> {
+    logger.info('MockMenuService: Fetching media items', { restaurantId });
+    console.log('🔄 MockMenuService: Carregando mídias...');
+    
+    await this.delay(500);
+    
+    console.log('✅ MockMenuService: Media items ready', { count: mockMediaItems.length });
+    logger.info('MockMenuService: Media items fetched successfully');
+    return [...mockMediaItems];
+  }
+
+  async updateMenuData(data: MenuData): Promise<ApiResponse<MenuData>> {
+    logger.info('MockMenuService: Updating menu data', { restaurantId: data.restaurantId });
+    
+    await this.delay(1000);
+
+    logger.info('MockMenuService: Menu data updated successfully');
+    return {
+      success: true,
+      data,
+      message: 'Menu updated successfully (mock)',
+    };
+  }
+
+  async syncData(): Promise<void> {
+    logger.info('MockMenuService: Syncing data');
+    await this.delay(600);
+    logger.info('MockMenuService: Data synced successfully');
+  }
+}
+
+// Export backward compatible ApiService
+export class ApiService {
+  private static service = new MockMenuService({}, true);
+
+  static async getMenuData(): Promise<MenuData> {
+    return this.service.getMenuData();
   }
 
   static async getMediaItems(): Promise<MediaItem[]> {
-    await this.delay(500);
-    return Promise.resolve(mockMediaItems);
-  }
-
-  static async getRestaurantInfo(restaurantId: string) {
-    await this.delay(600);
-    return Promise.resolve({
-      id: restaurantId,
-      name: mockRestaurantData.name,
-      description: 'Restaurante italiano autêntico com ambiente familiar e pratos tradicionais.',
-      address: 'Rua das Flores, 123 - Centro',
-      phone: '(11) 9999-8888',
-      hours: 'Seg-Dom: 11:30-22:30',
-      website: 'www.bellavista.com.br'
-    });
+    return this.service.getMediaItems();
   }
 }

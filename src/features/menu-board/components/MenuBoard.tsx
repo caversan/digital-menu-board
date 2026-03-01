@@ -22,6 +22,19 @@ export const MenuBoard: React.FC<MenuBoardProps> = ({ settings }) => {
     <BoardContainer>
       <Header>
         <RestaurantInfo>
+          {menuData.logoUrl && (
+            <RestaurantLogo 
+              src={menuData.logoUrl} 
+              alt={`${menuData.name} logo`}
+              onError={(e) => {
+                console.error('❌ Erro ao carregar logo:', menuData.logoUrl);
+                e.currentTarget.style.display = 'none';
+              }}
+              onLoad={() => {
+                console.log('✅ Logo carregado com sucesso!');
+              }}
+            />
+          )}
           <RestaurantName>{menuData.name}</RestaurantName>
           {currentCategory && (
             <CategoryName>{currentCategory.name}</CategoryName>
@@ -101,6 +114,15 @@ const RestaurantInfo = styled.div`
   gap: 0.5rem;
 `;
 
+const RestaurantLogo = styled.img`
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.5rem;
+`;
+
 const RestaurantName = styled.h1`
   font-size: 3.5rem;
   font-weight: 700;
@@ -152,16 +174,7 @@ const MenuItem = styled.div<{ $highlighted?: boolean }>`
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  border: 3px solid ${({ $highlighted, theme }) => 
-    $highlighted ? theme.colors.accent : 'transparent'
-  };
   transition: all 0.3s ease;
-  overflow: hidden;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-  }
 `;
 
 const ItemImage = styled.img`

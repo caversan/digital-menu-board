@@ -41,22 +41,23 @@ export interface RestaurantInfo {
 export interface MenuData {
   restaurantId: string;
   name: string;
+  logoUrl?: string;
   categories: MenuCategory[];
   items: MenuItem[];
 }
 
-// Interface para itens de mídia promocional
+// Media item for promotional content
 export interface MediaItem {
   id: string;
   type: 'image' | 'video';
   url: string;
   title?: string;
-  duration?: number; // em segundos
+  duration?: number; // in milliseconds
   displayOrder: number;
   isActive: boolean;
 }
 
-// Configuração de tema
+// Theme configuration (deprecated - use Theme from './theme')
 export interface ThemeConfig {
   primaryColor: string;
   secondaryColor: string;
@@ -72,30 +73,7 @@ export interface ThemeConfig {
   };
 }
 
-// Configuração de layout
-export interface LayoutConfig {
-  orientation: 'horizontal' | 'vertical';
-  layoutType: 'grid' | 'list' | 'highlight';
-  gridColumns?: number;
-  showPrices: boolean;
-  showImages: boolean;
-  showDescriptions: boolean;
-  featuredItemId?: string;
-  categoriesPerScreen?: number;
-  itemsPerScreen?: number;
-}
-
-// Item de mídia promocional
-export interface MediaItem {
-  id: string;
-  type: 'image' | 'video';
-  url: string;
-  title?: string;
-  duration?: number;
-  order: number;
-}
-
-// Configuração de mídia
+// Media configuration
 export interface MediaConfig {
   enabled: boolean;
   autoPlay: boolean;
@@ -103,7 +81,7 @@ export interface MediaConfig {
   items: MediaItem[];
 }
 
-// Configuração completa do display
+// Complete display configuration
 export interface DisplayConfig {
   id: string;
   restaurantId: string;
@@ -115,7 +93,7 @@ export interface DisplayConfig {
   lastUpdated: string;
 }
 
-// Estado da aplicação
+// Application state
 export interface AppState {
   restaurant: RestaurantInfo | null;
   menuData: MenuData | null;
@@ -126,7 +104,7 @@ export interface AppState {
   lastSync: string | null;
 }
 
-// Resposta da API
+// API Response
 export interface ApiResponse<T> {
   success: boolean;
   data?: T;
@@ -134,7 +112,7 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
-// Configuração de layout
+// Layout configuration
 export interface LayoutConfig {
   type: 'grid' | 'list' | 'highlight';
   itemsPerPage: number;
@@ -145,16 +123,16 @@ export interface LayoutConfig {
   orientation?: 'horizontal' | 'vertical';
 }
 
-// Configuração de playlist
+// Playlist configuration
 export interface PlaylistConfig {
   enabled: boolean;
-  categoryDisplayTime: number; // em milissegundos
-  mediaDisplayTime: number; // em milissegundos
-  order: string[]; // IDs das categorias na ordem
+  categoryDisplayTime: number; // in milliseconds
+  mediaDisplayTime: number; // in milliseconds
+  order: string[]; // Category IDs in order
   mediaItems: MediaItem[];
 }
 
-// Configurações do Menu Board
+// Menu Board settings
 export interface MenuBoardSettings {
   restaurantId: string;
   timezone?: string;
