@@ -1,14 +1,52 @@
 import styled from 'styled-components';
 
-export const BoardContainer = styled.div`
+export const BoardContainer = styled.div<{ $backgroundImage?: string }>`
   width: 100%;
   height: 100vh;
-  background: ${({ theme }) => theme.colors.background};
+  position: relative;
+  background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.typography.fontFamily};
   display: flex;
   flex-direction: column;
   overflow: hidden;
+
+  /* Background image com overlay */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: ${({ $backgroundImage }) => 
+      $backgroundImage ? `url(${$backgroundImage})` : 'none'};
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.25;
+    z-index: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  /* Overlay escuro para melhor contraste */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: ${({ theme }) => theme.colors.background};
+    opacity: 0.75;
+    z-index: 0;
+  }
+
+  /* Todo conteúdo acima do background */
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 `;
 
 export const Header = styled.header`
@@ -121,7 +159,7 @@ export const ContentLayout = styled.div`
 
   /* Layout Horizontal: Duas colunas (itens + destaque) */
   @media (orientation: landscape) {
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
   }
 
@@ -165,6 +203,10 @@ export const ItemsGrid = styled.div<{ columns: number }>`
   grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
   gap: ${({ theme }) => theme.spacing['2xl']};
   overflow: hidden;
+
+  @media (orientation: landscape) {
+    grid-template-columns: 1fr;
+  }
 
   @media (orientation: portrait) {
     grid-template-columns: 1fr;
@@ -264,7 +306,6 @@ export const FeaturedContainer = styled.div`
   height: 100%;
   position: relative;
   overflow: hidden;
-  border: 2px solid ${({ theme }) => theme.colors.primary};
 
   /* Gradiente sutil de fundo */
   &::before {

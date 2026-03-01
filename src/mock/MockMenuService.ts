@@ -16,7 +16,8 @@ const mockRestaurantData: MenuData = {
       description: 'Deliciosos aperitivos para despertar seu paladar',
       displayOrder: 1,
       isActive: true,
-      imageUrl: mockImage('u-1551024506-0bccd828d307-w600-h400.jpg')
+      imageUrl: mockImage('u-1551024506-0bccd828d307-w600-h400.jpg'),
+      backgroundImage: mockImage('bg-entradas.jpg')
     },
     {
       id: 'cat-002', 
@@ -24,7 +25,8 @@ const mockRestaurantData: MenuData = {
       description: 'Nossos pratos mais especiais do chef italiano',
       displayOrder: 2,
       isActive: true,
-      imageUrl: mockImage('u-1546833999-b9f581a1996d-w600-h400.jpg')
+      imageUrl: mockImage('u-1546833999-b9f581a1996d-w600-h400.jpg'),
+      backgroundImage: mockImage('bg-pratos.jpg')
     },
     {
       id: 'cat-003',
@@ -32,7 +34,8 @@ const mockRestaurantData: MenuData = {
       description: 'O final doce perfeito para sua refeição',
       displayOrder: 3,
       isActive: true,
-      imageUrl: mockImage('u-1563729784474-d77dbb933a9e-w600-h400.jpg')
+      imageUrl: mockImage('u-1563729784474-d77dbb933a9e-w600-h400.jpg'),
+      backgroundImage: mockImage('bg-sobremesas.jpg')
     },
     {
       id: 'cat-004',
@@ -40,7 +43,8 @@ const mockRestaurantData: MenuData = {
       description: 'Vinhos selecionados e bebidas refrescantes',
       displayOrder: 4,
       isActive: true,
-      imageUrl: mockImage('u-1544145945-f90425340c7e-w600-h400.jpg')
+      imageUrl: mockImage('u-1544145945-f90425340c7e-w600-h400.jpg'),
+      backgroundImage: mockImage('bg-bebidas.jpg')
     }
   ],
   items: [

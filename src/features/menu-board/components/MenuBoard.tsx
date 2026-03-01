@@ -63,7 +63,7 @@ const MenuBoardComponent: React.FC<MenuBoardProps> = ({ settings }) => {
   }, []);
 
   return (
-    <BoardContainer>
+    <BoardContainer $backgroundImage={currentCategory?.backgroundImage}>
       <Header>
         <RestaurantInfo>
           {menuData.logoUrl && (
