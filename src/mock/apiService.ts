@@ -1,10 +1,12 @@
 import type { MenuData, MediaItem } from '../shared/types';
 
+const mockImage = (fileName: string): string => new URL(`./images/${fileName}`, import.meta.url).href;
+
 // Mock data com conteúdo rico e visual
 const mockRestaurantData: MenuData = {
   restaurantId: 'rest-001',
   name: 'Bella Vista Ristorante',
-  logoUrl: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&h=200&fit=crop&q=80',
+  logoUrl: mockImage('logo-italian-restaurant.svg'),
   categories: [
     {
       id: 'cat-001',
@@ -12,7 +14,7 @@ const mockRestaurantData: MenuData = {
       description: 'Deliciosos aperitivos para despertar seu paladar',
       displayOrder: 1,
       isActive: true,
-      imageUrl: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&h=400&fit=crop'
+      imageUrl: mockImage('u-1551024506-0bccd828d307-w600-h400.jpg')
     },
     {
       id: 'cat-002', 
@@ -20,7 +22,7 @@ const mockRestaurantData: MenuData = {
       description: 'Nossos pratos mais especiais do chef italiano',
       displayOrder: 2,
       isActive: true,
-      imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&h=400&fit=crop'
+      imageUrl: mockImage('u-1546833999-b9f581a1996d-w600-h400.jpg')
     },
     {
       id: 'cat-003',
@@ -28,7 +30,7 @@ const mockRestaurantData: MenuData = {
       description: 'O final doce perfeito para sua refeição',
       displayOrder: 3,
       isActive: true,
-      imageUrl: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&h=400&fit=crop'
+      imageUrl: mockImage('u-1563729784474-d77dbb933a9e-w600-h400.jpg')
     },
     {
       id: 'cat-004',
@@ -36,7 +38,7 @@ const mockRestaurantData: MenuData = {
       description: 'Vinhos selecionados e bebidas refrescantes',
       displayOrder: 4,
       isActive: true,
-      imageUrl: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&h=400&fit=crop'
+      imageUrl: mockImage('u-1544145945-f90425340c7e-w600-h400.jpg')
     }
   ],
   items: [
@@ -47,7 +49,7 @@ const mockRestaurantData: MenuData = {
       name: 'Bruschetta Italiana Clássica',
       description: 'Pão artesanal tostado com tomates san marzano frescos, manjericão orgânico e azeite extra virgem da Toscana',
       price: 18.90,
-      imageUrl: 'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=500&h=300&fit=crop',
+      imageUrl: mockImage('u-1572695157366-5e585ab2b69f-w500-h300.jpg'),
       isActive: true,
       displayOrder: 1,
       badges: ['🌱 Vegetariano', '⭐ Chef']
@@ -58,7 +60,7 @@ const mockRestaurantData: MenuData = {
       name: 'Carpaccio de Salmão Premium',
       description: 'Fatias ultra finas de salmão norueguês com alcaparras, rúcula selvagem e molho cítrico artesanal',
       price: 32.90,
-      imageUrl: 'https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=500&h=300&fit=crop',
+      imageUrl: mockImage('carpaccio-salmao-new.jpg'),
       isActive: true,
       displayOrder: 2,
       isHighlighted: true,
@@ -70,7 +72,7 @@ const mockRestaurantData: MenuData = {
       name: 'Antipasti della Casa',
       description: 'Seleção de queijos italianos, presunto de Parma, azeitonas e vegetais em conserva',
       price: 24.90,
-      imageUrl: 'https://images.unsplash.com/photo-1544025162-2f853bdeec96?w=500&h=300&fit=crop',
+      imageUrl: mockImage('antipasti-casa-new.jpg'),
       isActive: true,
       displayOrder: 3,
       badges: ['🧀 Queijos Especiais']
@@ -83,7 +85,7 @@ const mockRestaurantData: MenuData = {
       name: 'Filé Mignon ao Barolo',
       description: 'Tender filé mignon grelhado ao ponto, risotto de cogumelos porcini e redução de vinho Barolo DOCG',
       price: 58.90,
-      imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500&h=300&fit=crop',
+      imageUrl: mockImage('u-1546833999-b9f581a1996d-w500-h300.jpg'),
       isActive: true,
       displayOrder: 1,
       isHighlighted: true,
@@ -95,7 +97,7 @@ const mockRestaurantData: MenuData = {
       name: 'Salmão Siciliano',
       description: 'Salmão fresco grelhado com crosta de ervas mediterrâneas, purê de batata-doce e aspargos grelhados',
       price: 45.90,
-      imageUrl: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&h=300&fit=crop',
+      imageUrl: mockImage('salmao-siciliano-new.jpg'),
       isActive: true,
       displayOrder: 2,
       badges: ['🐟 Peixe do Dia', '🌿 Ervas Frescas']
@@ -106,7 +108,7 @@ const mockRestaurantData: MenuData = {
       name: 'Osso Buco alla Milanese',
       description: 'Tradicional osso buco lombardo cozido lentamente com safran, served com risotto milanês cremoso',
       price: 52.90,
-      imageUrl: 'https://images.unsplash.com/photo-1574653430895-46d9c4de8b87?w=500&h=300&fit=crop',
+      imageUrl: mockImage('u-1546833999-b9f581a1996d-w500-h300.jpg'),
       isActive: true,
       displayOrder: 3,
       badges: ['🇮🇹 Tradicional', '⏰ Cozimento Lento']
@@ -119,7 +121,7 @@ const mockRestaurantData: MenuData = {
       name: 'Tiramisù della Nonna',
       description: 'Autêntica sobremesa italiana da receita da nonna com café espresso forte, mascarpone e ladyfingers',
       price: 19.90,
-      imageUrl: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&h=300&fit=crop',
+      imageUrl: mockImage('u-1571877227200-a0d98ea607e9-w500-h300.jpg'),
       isActive: true,
       displayOrder: 1,
       badges: ['🇮🇹 Receita Original', '☕ Com Café']
@@ -130,7 +132,7 @@ const mockRestaurantData: MenuData = {
       name: 'Petit Gâteau Fundente',
       description: 'Bolinho quente de chocolate belga 70% cacau com centro fundente, acompanha sorvete de vaniglia',
       price: 22.90,
-      imageUrl: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=500&h=300&fit=crop',
+      imageUrl: mockImage('u-1563729784474-d77dbb933a9e-w500-h300.jpg'),
       isActive: true,
       displayOrder: 2,
       isHighlighted: true,
@@ -142,7 +144,7 @@ const mockRestaurantData: MenuData = {
       name: 'Panna Cotta ai Frutti di Bosco',
       description: 'Deliciosa panna cotta artesanal com calda de frutas vermelhas da estação',
       price: 16.90,
-      imageUrl: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&h=300&fit=crop',
+      imageUrl: mockImage('u-1488477181946-6428a0291777-w500-h300.jpg'),
       isActive: true,
       displayOrder: 3,
       badges: ['🍓 Frutas Frescas', '🥛 Artesanal']
@@ -155,7 +157,7 @@ const mockRestaurantData: MenuData = {
       name: 'Chianti Classico DOCG',
       description: 'Vinho tinto da Toscana com notas de frutas vermelhas e especiarias - taça 150ml',
       price: 28.90,
-      imageUrl: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=500&h=300&fit=crop',
+      imageUrl: mockImage('u-1510812431401-41d2bd2722f3-w500-h300.jpg'),
       isActive: true,
       displayOrder: 1,
       badges: ['🍷 DOCG', '🇮🇹 Importado']
@@ -166,7 +168,7 @@ const mockRestaurantData: MenuData = {
       name: 'Prosecco di Valdobbiadene',
       description: 'Espumante italiano extra dry com perlage fino e persistente - taça 120ml',
       price: 24.90,
-      imageUrl: 'https://images.unsplash.com/photo-1549897088-2d8e2f8b5e4d?w=500&h=300&fit=crop',
+      imageUrl: mockImage('u-1506377247377-2a5b3b417ebb-w500-h300.jpg'),
       isActive: true,
       displayOrder: 2,
       badges: ['🥂 Espumante', '✨ Extra Dry']
@@ -177,7 +179,7 @@ const mockRestaurantData: MenuData = {
       name: 'Limonatta Siciliana',
       description: 'Limonada artesanal com limões sicilianos frescos, hortelã e água com gás',
       price: 12.90,
-      imageUrl: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500&h=300&fit=crop',
+      imageUrl: mockImage('u-1544145945-f90425340c7e-w500-h300.jpg'),
       isActive: true,
       displayOrder: 3,
       badges: ['🍋 Natural', '🌿 Hortelã Fresca']
@@ -189,7 +191,7 @@ const mockMediaItems: MediaItem[] = [
   {
     id: 'media-001',
     type: 'image',
-    url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=1080&fit=crop',
+    url: mockImage('u-1414235077428-338989a2e8c0-w1920-h1080.jpg'),
     title: '✨ Ambiente Aconchegante e Elegante',
     duration: 5,
     displayOrder: 1,
@@ -198,7 +200,7 @@ const mockMediaItems: MediaItem[] = [
   {
     id: 'media-002', 
     type: 'image',
-    url: 'https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=1920&h=1080&fit=crop',
+    url: mockImage('u-1559329007-40df8a9345d8-w1920-h1080.jpg'),
     title: '👨‍🍳 Pratos Especiais do Chef Italiano Matteo',
     duration: 4,
     displayOrder: 2,
@@ -207,7 +209,7 @@ const mockMediaItems: MediaItem[] = [
   {
     id: 'media-003',
     type: 'image', 
-    url: 'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=1920&h=1080&fit=crop',
+    url: mockImage('u-1424847651672-bf20a4b0982b-w1920-h1080.jpg'),
     title: '🍷 Happy Hour - Terça a Sexta das 17h às 19h - 30% OFF em vinhos!',
     duration: 6,
     displayOrder: 3,
@@ -216,7 +218,7 @@ const mockMediaItems: MediaItem[] = [
   {
     id: 'media-004',
     type: 'image',
-    url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&h=1080&fit=crop',
+    url: mockImage('u-1517248135467-4c7edcad34c4-w1920-h1080.jpg'),
     title: '🎉 Reservas para grupos - Espaço exclusivo para eventos especiais',
     duration: 4,
     displayOrder: 4,
@@ -225,7 +227,7 @@ const mockMediaItems: MediaItem[] = [
   {
     id: 'media-005',
     type: 'image',
-    url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=1920&h=1080&fit=crop',
+    url: mockImage('u-1571091718767-18b5b1457add-w1920-h1080.jpg'),
     title: '🍝 Massa fresca feita na casa diariamente - Tradição italiana autêntica',
     duration: 5,
     displayOrder: 5,

@@ -1,12 +1,14 @@
 import { MenuData, DisplayConfig, MediaItem } from '@shared/types';
 import { themes } from '@shared/themes';
 
+const mockImage = (fileName: string): string => new URL(`./images/${fileName}`, import.meta.url).href;
+
 // Mock de itens de mídia promocional
 export const mockMediaItems: MediaItem[] = [
   {
     id: 'media-1',
     type: 'image',
-    url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=1920&h=1080&fit=crop',
+    url: mockImage('u-1571091718767-18b5b1457add-w1920-h1080.jpg'),
     title: 'Promoção Combo Especial - 30% OFF',
     duration: 8,
     order: 1
@@ -14,7 +16,7 @@ export const mockMediaItems: MediaItem[] = [
   {
     id: 'media-2',
     type: 'image',
-    url: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=1920&h=1080&fit=crop',
+    url: mockImage('u-1571091718767-18b5b1457add-w1920-h1080.jpg'),
     title: 'Novos Sabores Chegaram!',
     duration: 6,
     order: 2
@@ -26,7 +28,7 @@ export const mockMenuData: MenuData = {
   restaurant: {
     id: 'rest-1',
     name: 'Burger House Digital',
-    logo: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=200&h=200&fit=crop',
+    logo: mockImage('u-1513475382585-d06e58bcb0e0-w200-h200.jpg'),
     address: 'Rua das Delícias, 123 - Centro'
   },
   categories: [
@@ -37,7 +39,7 @@ export const mockMenuData: MenuData = {
       order: 1,
       isVisible: true,
       duration: 12,
-      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop'
+      image: mockImage('u-1568901346375-23c9450c58cd-w400-h300.jpg')
     },
     {
       id: 'cat-2',
@@ -46,7 +48,7 @@ export const mockMenuData: MenuData = {
       order: 2,
       isVisible: true,
       duration: 10,
-      image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&h=300&fit=crop'
+      image: mockImage('u-1544145945-f90425340c7e-w400-h300.jpg')
     },
     {
       id: 'cat-3',
@@ -55,7 +57,7 @@ export const mockMenuData: MenuData = {
       order: 3,
       isVisible: true,
       duration: 15,
-      image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop'
+      image: mockImage('u-1565958011703-44f9829ba187-w400-h300.jpg')
     }
   ],
   items: [
@@ -65,7 +67,7 @@ export const mockMenuData: MenuData = {
       name: 'Classic Burger',
       description: 'Hambúrguer artesanal 180g, queijo, alface, tomate e molho especial',
       price: 28.90,
-      image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop',
+      image: mockImage('u-1568901346375-23c9450c58cd-w400-h300.jpg'),
       badge: { type: 'bestseller', label: 'Mais Pedido' },
       categoryId: 'cat-1',
       isAvailable: true,
@@ -76,7 +78,7 @@ export const mockMenuData: MenuData = {
       name: 'Bacon Deluxe',
       description: 'Dupla carne, bacon crocante, queijo cheddar, cebola caramelizada',
       price: 35.90,
-      image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop',
+      image: mockImage('u-1571091718767-18b5b1457add-w400-h300.jpg'),
       badge: { type: 'new', label: 'Novo' },
       categoryId: 'cat-1',
       isAvailable: true,
@@ -87,7 +89,7 @@ export const mockMenuData: MenuData = {
       name: 'Vegetarian Paradise',
       description: 'Hambúrguer de quinoa, queijo vegano, rúcula e tomate seco',
       price: 32.90,
-      image: 'https://images.unsplash.com/photo-1525059696034-4967a729002e?w=400&h=300&fit=crop',
+      image: mockImage('u-1568901346375-23c9450c58cd-w400-h300.jpg'),
       badge: { type: 'vegetarian', label: 'Vegetariano' },
       categoryId: 'cat-1',
       isAvailable: true,
@@ -99,7 +101,7 @@ export const mockMenuData: MenuData = {
       name: 'Coca-Cola 350ml',
       description: 'Refrigerante gelado',
       price: 6.90,
-      image: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400&h=300&fit=crop',
+      image: mockImage('u-1629203851122-3726ecdf080e-w400-h300.jpg'),
       categoryId: 'cat-2',
       isAvailable: true,
       order: 1
@@ -109,7 +111,7 @@ export const mockMenuData: MenuData = {
       name: 'Milkshake Chocolate',
       description: 'Milkshake cremoso com chantilly',
       price: 16.90,
-      image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&h=300&fit=crop',
+      image: mockImage('u-1572490122747-3968b75cc699-w400-h300.jpg'),
       badge: { type: 'bestseller', label: 'Popular' },
       categoryId: 'cat-2',
       isAvailable: true,
@@ -121,7 +123,7 @@ export const mockMenuData: MenuData = {
       name: 'Combo Classic',
       description: 'Classic Burger + Batata + Refrigerante',
       price: 39.90,
-      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop',
+      image: mockImage('u-1571091718767-18b5b1457add-w400-h300.jpg'),
       badge: { type: 'promotion', label: 'Promoção' },
       categoryId: 'cat-3',
       isAvailable: true,
@@ -132,7 +134,7 @@ export const mockMenuData: MenuData = {
       name: 'Combo Deluxe',
       description: 'Bacon Deluxe + Onion Rings + Milkshake',
       price: 49.90,
-      image: 'https://images.unsplash.com/photo-1619454016518-697bc231e7cb?w=400&h=300&fit=crop',
+      image: mockImage('u-1619454016518-697bc231e7cb-w400-h300.jpg'),
       badge: { type: 'promotion', label: 'Oferta' },
       categoryId: 'cat-3',
       isAvailable: true,
