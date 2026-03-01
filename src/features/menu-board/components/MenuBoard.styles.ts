@@ -82,6 +82,11 @@ export const ItemsGrid = styled.div<{ columns: number }>`
   gap: 2.5rem;
   height: calc(100% - 150px);
   overflow: hidden;
+
+  @media (orientation: portrait) {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
 `;
 
 export const MenuItem = styled.div<{ $highlighted?: boolean; $hasImage?: boolean }>`
