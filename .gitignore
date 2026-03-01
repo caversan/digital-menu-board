@@ -88,19 +88,28 @@ jspm_packages/
 dist/
 build/
 out/
+webos-build/
+src-tauri/target/
+
+# Local webOS tooling artifacts
+webos-cli.zip
+*.ipk
 
 # Logs
 logs
 *.log
 
 # Package managers
-package-lock.json
 yarn.lock
 
 # Archive files
 *.zip
 *.tar.gz
 *.rar
+
+# Python cache
+__pycache__/
+*.pyc
 
 # Database
 *.db

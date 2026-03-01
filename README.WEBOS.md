@@ -135,6 +135,26 @@ npm run webos:log
 | Controle remoto não bloqueia | `npm run webos:debug` (abrir DevTools) |
 | Não consegue conectar na TV | `ares-setup-device --remove tv && ares-setup-device --add tv` |
 
+### Erro de MIME no emulador local
+
+Se aparecer erro no navegador como:
+
+`Failed to load module script ... MIME type of "text/html"`
+
+Faça este fluxo:
+
+```bash
+npm run build
+python -u webos-emulator.py 3003
+```
+
+Depois:
+- Feche a aba antiga do navegador
+- Reabra `http://localhost:3003`
+- Force recarga com `Ctrl+F5` (ou teste em janela anônima)
+
+Esse erro acontece quando o servidor local responde `index.html` para arquivos de bundle (`.js`) em vez de servir os arquivos estáticos com MIME correto.
+
 ## 📊 Versões Suportadas
 
 | webOS | TV Models | Status |
