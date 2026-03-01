@@ -304,7 +304,7 @@ export const FeaturedContainer = styled.div`
   background: ${({ theme }) => theme.colors.surface};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing.xl};
-  box-shadow: ${({ theme }) => theme.shadows['2xl']};
+  box-shadow: ${({ theme }) => theme.shadows.xl};
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};
