@@ -4,10 +4,10 @@ import {
   BoardContainer,
   Header,
   RestaurantInfo,
+  RestaurantText,
   RestaurantLogo,
   RestaurantName,
   CategoryName,
-  DateTime,
   MenuContent,
   CategoryDescription,
   ItemsGrid,
@@ -55,18 +55,13 @@ export const MenuBoard: React.FC<MenuBoardProps> = ({ settings }) => {
               }}
             />
           )}
-          <RestaurantName>{menuData.name}</RestaurantName>
-          {currentCategory && (
-            <CategoryName>{currentCategory.name}</CategoryName>
-          )}
+          <RestaurantText>
+            <RestaurantName>{menuData.name}</RestaurantName>
+            {currentCategory && (
+              <CategoryName>{currentCategory.name}</CategoryName>
+            )}
+          </RestaurantText>
         </RestaurantInfo>
-        <DateTime>
-          {new Date().toLocaleString('pt-BR', {
-            weekday: 'long',
-            hour: '2-digit',
-            minute: '2-digit'
-          })}
-        </DateTime>
       </Header>
 
       <MenuContent>

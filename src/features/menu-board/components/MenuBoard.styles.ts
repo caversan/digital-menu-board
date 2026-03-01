@@ -12,50 +12,54 @@ export const BoardContainer = styled.div`
 `;
 
 export const Header = styled.header`
-  padding: 2rem 3rem;
+  padding: 1rem 2rem;
   background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary} 0%, ${({ theme }) => theme.colors.secondary} 100%);
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 1rem;
   align-items: center;
-  min-height: 140px;
+  min-height: 96px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 `;
 
 export const RestaurantInfo = styled.div`
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+export const RestaurantText = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  justify-content: center;
+  min-width: 0;
 `;
 
 export const RestaurantLogo = styled.img`
-  width: 90px;
-  height: 90px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.12);
-  padding: 0.5rem;
+  padding: 0.4rem;
+  grid-column: 1;
 `;
 
 export const RestaurantName = styled.h1`
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: white;
   margin: 0;
+  line-height: 1.1;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 `;
 
 export const CategoryName = styled.h2`
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
-`;
-
-export const DateTime = styled.div`
-  font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.8);
-  text-align: right;
-  font-weight: 500;
 `;
 
 export const MenuContent = styled.main`
