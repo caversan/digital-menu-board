@@ -36,6 +36,7 @@ const DigitalSignagePlayerComponent: React.FC<DigitalSignagePlayerProps> = ({
     skipToNext,
     skipToPrevious,
     restartPlaylist,
+    onVideoEnded,
     analytics
   } = usePlaylist(settings, { paused: !autoStart,
   });
@@ -75,6 +76,7 @@ const DigitalSignagePlayerComponent: React.FC<DigitalSignagePlayerProps> = ({
             src={currentMedia.url}
             autoPlay
             muted
+            onEnded={onVideoEnded}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         )}

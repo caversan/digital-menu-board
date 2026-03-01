@@ -34,6 +34,7 @@ export const usePlaylist = (
   });
 
   const intervalRef = useRef<NodeJS.Timeout>();
+  const videoEndedRef = useRef<boolean>(false);
 
   // Criar array de itens da playlist (categorias + mídia intercalada)
   const playlistItems = React.useMemo(() => {
@@ -85,12 +86,21 @@ export const usePlaylist = (
       return;
     }
 
+    // Reset do flag quando mudar de item
+    videoEndedRef.current = false;
+
     intervalRef.current = setInterval(() => {
       setPlaylistState(prev => {
         const newElapsedTime = prev.elapsedTime + 100; // Update every 100ms
         
+        // Se for vídeo, aguardar o evento de término
+        const isVideo = currentItem.type === 'media' && (currentItem.data as MediaItem).type === 'video';
+        const shouldAdvance = isVideo 
+          ? videoEndedRef.current 
+          : newElapsedTime >= currentItem.duration;
+        
         // Verificar se deve avançar para próximo item
-        if (newElapsedTime >= currentItem.duration) {
+        if (shouldAdvance) {
           const nextIndex = (prev.currentIndex + 1) % playlistItems.length;
           
           // Atualizar analytics
@@ -159,6 +169,11 @@ export const usePlaylist = (
     });
   }, []);
 
+  // Callback para quando o vídeo terminar
+  const onVideoEnded = useCallback(() => {
+    videoEndedRef.current = true;
+  }, []);
+
   return {
     // Estado atual
     currentCategory,
@@ -173,6 +188,7 @@ export const usePlaylist = (
     skipToNext,
     skipToPrevious,
     restartPlaylist,
+    onVideoEnded,
 
     // Analytics
     analytics: {

@@ -171,7 +171,7 @@ const mockMediaItems: MediaItem[] = [
     type: 'image',
     url: mockImage('u-1414235077428-338989a2e8c0-w1920-h1080.jpg'),
     title: '🎉 Bem-vindo ao Bella Vista Ristorante!',
-    duration: 5000,
+    duration: 7000,
     displayOrder: 1,
     isActive: true
   },
@@ -180,7 +180,7 @@ const mockMediaItems: MediaItem[] = [
     type: 'video',
     url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     title: '🎬 Experiência Gastronômica Única',
-    duration: 10000,
+    duration: 7000, // Será ignorado - vídeo toca até o fim
     displayOrder: 2,
     isActive: true
   },
@@ -189,7 +189,7 @@ const mockMediaItems: MediaItem[] = [
     type: 'image',
     url: mockImage('u-1559329007-40df8a9345d8-w1920-h1080.jpg'),
     title: '👨‍🍳 Pratos Especiais do Chef Italiano Matteo',
-    duration: 4000,
+    duration: 7000,
     displayOrder: 3,
     isActive: true
   },
@@ -198,7 +198,7 @@ const mockMediaItems: MediaItem[] = [
     type: 'image', 
     url: mockImage('u-1424847651672-bf20a4b0982b-w1920-h1080.jpg'),
     title: '🍷 Happy Hour - Terça a Sexta das 17h às 19h - 30% OFF em vinhos!',
-    duration: 6000,
+    duration: 7000,
     displayOrder: 4,
     isActive: true
   }

@@ -52,8 +52,8 @@ export const useMenuData = (
         menuData,
         playlist: {
           enabled: true,
-          categoryDisplayTime: 8000,
-          mediaDisplayTime: 3000,
+          categoryDisplayTime: 7000,
+          mediaDisplayTime: 7000,
           order: menuData.categories.map((cat) => cat.id),
           mediaItems,
         },
