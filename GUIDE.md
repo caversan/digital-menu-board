@@ -9,6 +9,18 @@ npm run dev
 
 O servidor iniciará em `http://localhost:3001` (ou outra porta disponível).
 
+### Modo Kiosk (Tauri)
+
+```bash
+# Modo desenvolvimento
+npm run tauri dev
+
+# Build para produção
+npm run tauri build
+```
+
+**⚠️ Saída de Emergência**: Pressione a tecla **Q** para fechar a aplicação no modo kiosk.
+
 ## ✨ Funcionalidades Implementadas
 
 ### Dados de Mock
@@ -59,6 +71,12 @@ Pressione `Ctrl+D` em desenvolvimento para ver o painel de debug com:
 - Mídia atual
 - Progresso e tempo decorrido
 - Botões: Play/Pause, Anterior, Próximo, Reiniciar
+
+### Saindo do Modo Kiosk
+No modo Tauri kiosk, pressione a tecla **Q** para fechar a aplicação.
+
+> ⚠️ **Nota**: Este é um atalho de emergência para sair do modo fullscreen.
+> Use apenas quando necessário para manutenção ou atualização do sistema.
 
 ### Network
 Em desenvolvimento, há um delay simulado de rede:

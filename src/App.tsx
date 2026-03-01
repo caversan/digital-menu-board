@@ -6,6 +6,7 @@ import { ErrorBoundary, MenuBoardLoading, ErrorLoading } from './shared/componen
 import { DigitalSignagePlayer } from './features/playlist/DigitalSignagePlayer';
 import { useMenuData, useOnline } from './shared/hooks';
 import { logger } from './shared/utils/logger';
+import { invoke } from '@tauri-apps/api/core';
 
 function App() {
   const { settings, isLoading, error, refresh } = useMenuData();
@@ -34,8 +35,17 @@ function App() {
 
     // Disable keyboard shortcuts
     const handleKeyDown = (e: KeyboardEvent) => {
-      const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
-      const ctrlKey = isMac ? e.metaKey : e.ctrlKey;
+      // Q key (emergency exit for kiosk mode)
+      if (e.key === 'q' || e.key === 'Q') {
+        e.preventDefault();
+        console.log('🔐 Emergency exit shortcut detected - closing application...');
+        logger.info('Emergency exit shortcut triggered');
+        invoke('close_app').catch(err => {
+          console.error('Failed to close app:', err);
+          logger.error('Failed to close app', { error: err });
+        });
+        return false;
+      }
 
       // F11 (fullscreen toggle)
       if (e.key === 'F11') {

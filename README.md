@@ -8,6 +8,7 @@ Sistema escalável de cardápio digital para restaurantes com sincronização em
 - [Perguntas-Chave Respondidas](#perguntas-chave-respondidas)
 - [Checklist de Requisitos](#checklist-de-requisitos)
 - [Como Usar](#como-usar)
+- [Modo Kiosk](#modo-kiosk)
 
 ---
 
@@ -507,7 +508,48 @@ VITE_API_URL=http://localhost:3000
 
 ---
 
-## 📋 Resposta às Perguntas Chave
+## �️ Modo Kiosk
+
+O projeto inclui suporte completo para modo **Kiosk** usando **Tauri**, ideal para TVs e displays públicos.
+
+### Características do Modo Kiosk
+- ✅ **Fullscreen forçado** - Sem bordas ou barra de título
+- ✅ **Sempre no topo** - Janela não pode ser minimizada
+- ✅ **Segurança máxima** - Todos os atalhos perigosos bloqueados (F12, Alt+F4, Ctrl+R, etc)
+- ✅ **Right-click desabilitado** - Sem menu de contexto
+- ✅ **Não redimensionável** - Tamanho fixo
+- ✅ **Saída de emergência** - Tecla **Q** para fechar (manutenção)
+
+### Como Executar
+
+```bash
+# Desenvolvimento com hot reload
+npm run tauri dev
+
+# Build para produção
+npm run tauri build
+
+# Resultado: executável Windows (.exe) e instalador (.msi)
+```
+
+### Saindo do Modo Kiosk
+
+⚠️ **Para fechar a aplicação no modo kiosk, pressione a tecla Q**
+
+> Este é um atalho de emergência para manutenção e atualizações do sistema.
+> Em produção, considere restringir acesso físico ao teclado.
+
+### Mais Informações
+
+Consulte [TAURI_KIOSK_SETUP.md](TAURI_KIOSK_SETUP.md) para documentação completa sobre:
+- Instalação do Rust e dependências
+- Configuração de segurança
+- Troubleshooting
+- Comparação com Chrome Kiosk e Electron
+
+---
+
+## �📋 Resposta às Perguntas Chave
 
 | Pergunta | Resposta | Seção |
 |----------|----------|-------|

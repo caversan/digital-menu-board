@@ -480,6 +480,46 @@ Verificação completa de **11 requisitos** com exemplos detalhados:
 
 ---
 
+## 🖥️ MODO KIOSK (TAURI)
+
+### Implementação Completa
+- ✅ **Tauri configurado**: Build funcional com Rust
+- ✅ **Fullscreen forçado**: Sem bordas ou barra de título
+- ✅ **Sempre no topo**: Janela não minimizável
+- ✅ **Segurança ativa**: 12+ atalhos bloqueados (F12, Alt+F4, Ctrl+R, etc)
+- ✅ **Right-click desabilitado**: Menu de contexto bloqueado
+- ✅ **Não redimensionável**: Tamanho fixo
+- ✅ **Saída de emergência**: Tecla **Q** para fechar
+
+### Localização no Código
+```
+src-tauri/
+├── tauri.conf.json           # Configuração (fullscreen, decorations, etc)
+├── src/main.rs               # Backend Rust (handlers, security)
+└── capabilities/default.json # Permissões de segurança
+
+src/App.tsx                   # Frontend security (linha 37-48)
+```
+
+### Como Usar
+```bash
+# Desenvolvimento
+npm run tauri dev
+
+# Build produção
+npm run tauri build
+```
+
+**Para sair no modo kiosk**: Pressione a tecla **Q**
+
+### Documentação
+Consulte [TAURI_KIOSK_SETUP.md](TAURI_KIOSK_SETUP.md) para:
+- Setup completo do Rust
+- Troubleshooting
+- Comparação com Electron e Chrome Kiosk
+
+---
+
 ## ✨ CONCLUSÃO
 
 **TODO o briefing foi implementado:**

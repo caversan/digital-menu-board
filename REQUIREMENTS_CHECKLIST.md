@@ -1675,6 +1675,61 @@ useEffect(() => {
 | **Config JSON-driven** | ✅ COMPLETO | MenuBoardSettings plain object, facilmente serializável |
 | **Performance Otimizada** | ✅ COMPLETO | useMemo, useCallback, React.memo, sem re-renders desnecessários |
 
+---
+
+## 🖥️ Modo Kiosk (Tauri)
+
+### Status: ✅ COMPLETO
+
+A aplicação inclui suporte completo para **modo Kiosk** usando **Tauri**, permitindo executar como aplicação nativa com segurança máxima.
+
+### Características Implementadas:
+- ✅ **Fullscreen forçado**: Janela sem bordas ou barra de título
+- ✅ **Sempre no topo**: Não pode ser minimizada ou coberta
+- ✅ **Não redimensionável**: Tamanho fixo (1920x1080)
+- ✅ **Right-click bloqueado**: Menu de contexto desabilitado
+- ✅ **Atalhos bloqueados**: F12, F11, Alt+F4, Ctrl+R, Win key, etc (12+ atalhos)
+- ✅ **Saída de emergência**: Tecla **Q** fecha a aplicação (para manutenção)
+
+### Arquivos Configurados:
+```
+src-tauri/
+├── tauri.conf.json           → Configuração principal (fullscreen: true, etc)
+├── src/main.rs               → Backend Rust (handlers de segurança)
+├── Cargo.toml                → Dependências Rust
+└── capabilities/default.json → Permissões de acesso
+
+src/App.tsx                   → Frontend security (linha 37-48: atalho Q)
+```
+
+### Como Usar:
+
+```bash
+# Desenvolvimento com hot reload
+npm run tauri dev
+
+# Build para produção (gera .exe e .msi)
+npm run tauri build
+
+# Resultado:
+# src-tauri/target/release/digital-menu-board.exe
+# src-tauri/target/release/bundle/msi/DigitalMenuBoard_1.0.0_x64-setup.msi
+```
+
+### Saindo do Modo Kiosk:
+**Pressione a tecla Q** para fechar a aplicação.
+
+> ⚠️ Este é um atalho de emergência para manutenção. Em produção, considere restringir acesso físico ao teclado ou remover este atalho para máxima segurança.
+
+### Documentação Completa:
+Consulte [TAURI_KIOSK_SETUP.md](TAURI_KIOSK_SETUP.md) para:
+- Instalação do Rust e dependências C++
+- Troubleshooting de build
+- Comparação: Tauri vs Chrome Kiosk vs Electron
+- Configurações avançadas de segurança
+
+---
+
 ## 🎯 Conclusão
 
 A aplicação **atende completamente todos os 11 requisitos** e está pronta para:

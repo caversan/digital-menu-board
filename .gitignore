@@ -123,3 +123,12 @@ config/production.json
 *.bak
 *.backup
 *.old
+
+# Tauri / Rust specific
+src-tauri/target/
+src-tauri/Cargo.lock
+src-tauri/WixTools/
+src-tauri/gen/schemas/
+
+# Tauri bundles
+src-tauri/target/release/bundle/
