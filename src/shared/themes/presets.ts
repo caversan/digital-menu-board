@@ -9,7 +9,7 @@ export const modernTheme: Theme = {
     background: '#1a1a1a',
     surface: '#2d2d2d',
     text: '#ffffff',
-    textSecondary: '#b3b3b3',
+    textSecondary: '#1a1a1a',
     border: '#404040',
     error: '#ef4444',
     warning: '#f59e0b',

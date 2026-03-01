@@ -76,7 +76,7 @@ export const CardTitle = styled.h3`
 
 export const CardDescription = styled.p`
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.textS};
   margin: ${({ theme }) => theme.spacing.xs} 0 0;
   line-height: ${({ theme }) => theme.typography.lineHeight.normal};
 `;
