@@ -51,7 +51,12 @@ export const BoardContainer = styled.div<{ $backgroundImage?: string }>`
 
 export const Header = styled.header`
   padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
-  background: linear-gradient(135deg, #ac0000 0%, #ac0000 60%, #ffffff 70%, #00880d 100%);
+  background: linear-gradient(to right, 
+    #00880d 0%, #00880d 2%,
+    #ffffff 2%, #ffffff 4%,
+    #ac0000 4%, #ac0000 100%
+  );
+  padding-left: 6%;
   display: grid;
   grid-template-columns: 84px 1fr;
   gap: ${({ theme }) => theme.spacing.md};
@@ -303,6 +308,7 @@ export const FeaturedContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.lg};
+  width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
