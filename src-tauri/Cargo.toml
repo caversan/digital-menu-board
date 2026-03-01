@@ -1,0 +1,25 @@
+[package]
+name = "digital-menu-board"
+version = "1.0.0"
+description = "Digital Menu Board - Kiosk Display for Restaurants"
+authors = ["Digital Menu Board Team"]
+license = ""
+repository = ""
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+tauri = { version = "1.5", features = ["shell-open", "window-all", "menu"] }
+tokio = { version = "1", features = ["full"] }
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+codegen-units = 1
+lto = true

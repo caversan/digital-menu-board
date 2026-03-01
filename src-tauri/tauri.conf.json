@@ -1,0 +1,120 @@
+{
+  "productName": "Digital Menu Board",
+  "version": "1.0.0",
+  "identifier": "com.digitalmenuboard.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:5173",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Digital Menu Board - Kiosk Mode",
+        "width": 1920,
+        "height": 1080,
+        "minWidth": 1280,
+        "minHeight": 720,
+        "fullscreen": true,
+        "decorations": false,
+        "resizable": false,
+        "alwaysOnTop": true,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "core": {
+        "window": {
+          "all": false,
+          "maximize": false,
+          "minimize": false,
+          "close": false,
+          "hide": false,
+          "show": true,
+          "setSize": false,
+          "setPosition": false,
+          "setFullscreen": true,
+          "setFocus": true,
+          "isFullscreen": true
+        },
+        "globalShortcut": {
+          "all": false
+        },
+        "menu": {
+          "all": false
+        }
+      }
+    },
+    "bundle": {
+      "active": true,
+      "targets": [
+        "msi",
+        "nsis"
+      ],
+      "nsis": {
+        "installerIcon": null,
+        "uninstallerIcon": null,
+        "headerIcon": null,
+        "certificateThumbprint": null,
+        "signingIdentity": null,
+        "scope": [
+          "currentUser"
+        ]
+      },
+      "msi": {
+        "certificateThumbprint": null,
+        "signingIdentity": null,
+        "upgradeCode": null,
+        "allowDowngrades": false,
+        "wixLanguage": "en-US"
+      },
+      "macOS": {
+        "files": [],
+        "exceptionDomain": "",
+        "frameworks": [],
+        "minimumSystemVersion": "",
+        "useBootstrapper": true,
+        "useFrameworkBundle": false,
+        "signingIdentity": null,
+        "entitlements": null,
+        "signingIdentityPrefix": "",
+        "provisioningProfile": null
+      },
+      "linux": {
+        "debian": {
+          "depends": []
+        },
+        "rpm": {
+          "epoch": 0
+        },
+        "appimage": {
+          "bundleMediaFramework": true
+        }
+      },
+      "windows": [
+        {
+          "certificateThumbprint": null,
+          "digestAlgorithm": "sha256",
+          "signingIdentity": null,
+          "timestampUrl": ""
+        }
+      ],
+      "createUpdaterArtifacts": false
+    },
+    "cli": {
+      "description": "Digital Menu Board - Display signage for restaurants",
+      "longDescription": null,
+      "beforeHelp": null,
+      "afterHelp": null,
+      "args": [],
+      "subcommands": {}
+    }
+  }
+}

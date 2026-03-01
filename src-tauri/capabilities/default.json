@@ -1,0 +1,13 @@
+{
+  "identifier": "default",
+  "description": "Capabilities for Digital Menu Board",
+  "windows": ["main"],
+  "webapi": {
+    "all": false,
+    "assetScope": [
+      "$WEBROOT",
+      "$WEBROOT/**"
+    ]
+  },
+  "permissions": []
+}

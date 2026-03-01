@@ -23,6 +23,111 @@ function App() {
     });
   }, [isOnline, settings]);
 
+  // 🔒 Kiosk mode security headers
+  React.useEffect(() => {
+    // Disable right-click context menu
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      return false;
+    };
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    // Disable keyboard shortcuts
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
+      const ctrlKey = isMac ? e.metaKey : e.ctrlKey;
+
+      // F11 (fullscreen toggle)
+      if (e.key === 'F11') {
+        e.preventDefault();
+        return false;
+      }
+
+      // F12 (dev tools)
+      if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl+R (reload page)
+      if (ctrlKey && e.key === 'r') {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl+Shift+I (dev tools inspector)
+      if (ctrlKey && e.shiftKey && e.key === 'i') {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl+Shift+C (color picker)
+      if (ctrlKey && e.shiftKey && e.key === 'c') {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl+Shift+J (console)
+      if (ctrlKey && e.shiftKey && e.key === 'j') {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl+Shift+K (search)
+      if (ctrlKey && e.shiftKey && e.key === 'k') {
+        e.preventDefault();
+        return false;
+      }
+
+      // F5 (refresh)
+      if (e.key === 'F5') {
+        e.preventDefault();
+        return false;
+      }
+
+      return true;
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
+    // Disable drag and drop
+    const handleDragOver = (e: DragEvent) => {
+      e.preventDefault();
+      return false;
+    };
+    document.addEventListener('dragover', handleDragOver);
+
+    const handleDrop = (e: DragEvent) => {
+      e.preventDefault();
+      return false;
+    };
+    document.addEventListener('drop', handleDrop);
+
+    // Prevent text selection
+    const handleSelectStart = (e: Event) => {
+      (e.target as HTMLElement).style.userSelect = 'none';
+    };
+    document.addEventListener('selectstart', handleSelectStart);
+
+    // Disable print dialog
+    const handlePrint = (e: Event) => {
+      e.preventDefault();
+      return false;
+    };
+    window.addEventListener('beforeprint', handlePrint);
+
+    console.log('🔒 Kiosk mode security handlers installed');
+    logger.info('Kiosk mode security handlers installed');
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('dragover', handleDragOver);
+      document.removeEventListener('drop', handleDrop);
+      document.removeEventListener('selectstart', handleSelectStart);
+      window.removeEventListener('beforeprint', handlePrint);
+    };
+  }, []);
+
   console.log('🔍 App state:', { isLoading, hasSettings: !!settings, hasError: !!error });
 
   // Show loading state
