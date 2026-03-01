@@ -37,6 +37,7 @@ const DigitalSignagePlayerComponent: React.FC<DigitalSignagePlayerProps> = ({
     skipToPrevious,
     restartPlaylist,
     onVideoEnded,
+    onVideoTimeUpdate,
     analytics
   } = usePlaylist(settings, { paused: !autoStart,
   });
@@ -47,6 +48,12 @@ const DigitalSignagePlayerComponent: React.FC<DigitalSignagePlayerProps> = ({
       setDebugVisible(prev => !prev);
     }
   }, []);
+
+  // Handler para atualizar progresso do vídeo
+  const handleVideoTimeUpdate = useCallback((e: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = e.currentTarget;
+    onVideoTimeUpdate(video.currentTime, video.duration);
+  }, [onVideoTimeUpdate]);
 
   // Always show menu board if no current category (fallback)
   const shouldShowMenuBoard = !isShowingMedia;
@@ -77,6 +84,7 @@ const DigitalSignagePlayerComponent: React.FC<DigitalSignagePlayerProps> = ({
             autoPlay
             muted
             onEnded={onVideoEnded}
+            onTimeUpdate={handleVideoTimeUpdate}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         )}

@@ -33,6 +33,8 @@ export const usePlaylist = (
     currentDisplayTime: 0
   });
 
+  const [videoProgress, setVideoProgress] = useState<number>(0);
+
   const intervalRef = useRef<NodeJS.Timeout>();
   const videoEndedRef = useRef<boolean>(false);
 
@@ -73,9 +75,13 @@ export const usePlaylist = (
   const currentMedia = currentItem?.type === 'media' ? currentItem.data as MediaItem : null;
   const isShowingMedia = currentItem?.type === 'media';
 
-  // Progresso atual
-  const progressPercentage = currentItem ? 
-    Math.min(100, (playlistState.elapsedTime / currentItem.duration) * 100) : 0;
+  // Progresso atual - usar progresso do vídeo para vídeos, tempo decorrido para outros
+  const isVideo = currentItem?.type === 'media' && (currentItem.data as MediaItem).type === 'video';
+  const progressPercentage = isVideo 
+    ? videoProgress 
+    : currentItem 
+      ? Math.min(100, (playlistState.elapsedTime / currentItem.duration) * 100) 
+      : 0;
 
   // Timer principal
   useEffect(() => {
@@ -86,8 +92,9 @@ export const usePlaylist = (
       return;
     }
 
-    // Reset do flag quando mudar de item
+    // Reset do flag e progresso do vídeo quando mudar de item
     videoEndedRef.current = false;
+    setVideoProgress(0);
 
     intervalRef.current = setInterval(() => {
       setPlaylistState(prev => {
@@ -174,6 +181,14 @@ export const usePlaylist = (
     videoEndedRef.current = true;
   }, []);
 
+  // Callback para atualizar progresso do vídeo
+  const onVideoTimeUpdate = useCallback((currentTime: number, duration: number) => {
+    if (duration > 0) {
+      const progress = (currentTime / duration) * 100;
+      setVideoProgress(Math.min(100, progress));
+    }
+  }, []);
+
   return {
     // Estado atual
     currentCategory,
@@ -189,6 +204,7 @@ export const usePlaylist = (
     skipToPrevious,
     restartPlaylist,
     onVideoEnded,
+    onVideoTimeUpdate,
 
     // Analytics
     analytics: {
