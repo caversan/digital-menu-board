@@ -101,14 +101,63 @@ export const MenuContent = styled.main`
   flex: 1;
   padding: ${({ theme }) => theme.spacing['3xl']};
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const CategoryDescription = styled.p`
   font-size: 2rem;
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing['3xl']};
+  margin-bottom: ${({ theme }) => theme.spacing['2xl']};
   text-align: center;
   line-height: ${({ theme }) => theme.typography.lineHeight.normal};
+`;
+
+export const ContentLayout = styled.div`
+  flex: 1;
+  display: grid;
+  gap: ${({ theme }) => theme.spacing['2xl']};
+  overflow: hidden;
+
+  /* Layout Horizontal: Duas colunas (itens + destaque) */
+  @media (orientation: landscape) {
+    grid-template-columns: 1fr 400px;
+    grid-template-rows: 1fr;
+  }
+
+  /* Layout Vertical: Uma coluna (destaque no topo) */
+  @media (orientation: portrait) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 30% 1fr;
+  }
+`;
+
+export const ItemsSection = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  @media (orientation: landscape) {
+    order: 1; /* Primeira coluna em horizontal */
+  }
+
+  @media (orientation: portrait) {
+    order: 2; /* Segunda linha em vertical */
+  }
+`;
+
+export const FeaturedSection = styled.div`
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+
+  @media (orientation: landscape) {
+    order: 2; /* Segunda coluna em horizontal (direita) */
+  }
+
+  @media (orientation: portrait) {
+    order: 1; /* Primeira linha em vertical (topo) */
+  }
 `;
 
 export const ItemsGrid = styled.div<{ columns: number }>`
@@ -200,4 +249,163 @@ export const Badge = styled.span`
   font-size: ${({ theme }) => theme.typography.fontSize.md};
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   box-shadow: ${({ theme }) => theme.shadows.sm};
+`;
+
+// ===== Featured Product Styles =====
+
+export const FeaturedContainer = styled.div`
+  background: ${({ theme }) => theme.colors.surface};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  padding: ${({ theme }) => theme.spacing.xl};
+  box-shadow: ${({ theme }) => theme.shadows['2xl']};
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.lg};
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+
+  /* Gradiente sutil de fundo */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      ${({ theme }) => theme.colors.primary}05 0%, 
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+
+  @media (orientation: landscape) {
+    /* Vertical em tela horizontal */
+    height: 100%;
+  }
+
+  @media (orientation: portrait) {
+    /* Horizontal em tela vertical */
+    flex-direction: row;
+    align-items: center;
+    padding: ${({ theme }) => theme.spacing.lg};
+  }
+`;
+
+export const FeaturedLabel = styled.div`
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  color: ${({ theme }) => theme.colors.primary};
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md};
+  background: ${({ theme }) => theme.colors.primary}20;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  align-self: flex-start;
+  z-index: 1;
+
+  @media (orientation: portrait) {
+    position: absolute;
+    top: ${({ theme }) => theme.spacing.md};
+    left: ${({ theme }) => theme.spacing.md};
+  }
+`;
+
+export const FeaturedContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.lg};
+  flex: 1;
+  z-index: 1;
+  justify-content: space-between;
+
+  @media (orientation: portrait) {
+    flex: 1;
+    padding-right: ${({ theme }) => theme.spacing.md};
+  }
+`;
+
+export const FeaturedName = styled.h3`
+  font-size: ${({ theme }) => theme.typography.fontSize['3xl']};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  color: ${({ theme }) => theme.colors.text};
+  margin: 0 0 ${({ theme }) => theme.spacing.md} 0;
+  line-height: ${({ theme }) => theme.typography.lineHeight.tight};
+
+  @media (orientation: portrait) {
+    font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
+    margin: ${({ theme }) => theme.spacing['2xl']} 0 ${({ theme }) => theme.spacing.sm} 0;
+  }
+`;
+
+export const FeaturedDescription = styled.p`
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  color: ${({ theme }) => theme.colors.text};
+  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
+  margin: 0;
+  opacity: 0.9;
+
+  @media (orientation: portrait) {
+    font-size: ${({ theme }) => theme.typography.fontSize.lg};
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+`;
+
+export const FeaturedPrice = styled.div`
+  font-size: ${({ theme }) => theme.typography.fontSize['4xl']};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  color: ${({ theme }) => theme.colors.primary};
+  margin-top: auto;
+
+  @media (orientation: portrait) {
+    font-size: ${({ theme }) => theme.typography.fontSize['3xl']};
+  }
+`;
+
+export const FeaturedBadgesContainer = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.sm};
+  flex-wrap: wrap;
+  margin-top: ${({ theme }) => theme.spacing.md};
+`;
+
+export const FeaturedBadge = styled.span`
+  background: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.surface};
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  box-shadow: ${({ theme }) => theme.shadows.md};
+`;
+
+export const FeaturedImageWrapper = styled.div`
+  width: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  box-shadow: ${({ theme }) => theme.shadows.lg};
+  z-index: 1;
+
+  @media (orientation: landscape) {
+    height: 300px;
+    margin-top: auto;
+  }
+
+  @media (orientation: portrait) {
+    width: 40%;
+    height: 100%;
+  }
+`;
+
+export const FeaturedImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 `;
