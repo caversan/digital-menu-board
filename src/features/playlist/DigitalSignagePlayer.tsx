@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { usePlaylist } from './usePlaylist';
 import { MenuBoard } from '../menu-board/components/MenuBoard';
 import type { MenuBoardSettings } from '../../shared/types';
@@ -18,7 +18,7 @@ interface DigitalSignagePlayerProps {
   autoStart?: boolean;
 }
 
-export const DigitalSignagePlayer: React.FC<DigitalSignagePlayerProps> = ({
+const DigitalSignagePlayerComponent: React.FC<DigitalSignagePlayerProps> = ({
   settings,
   showControls = false,
   autoStart = true,
@@ -51,16 +51,17 @@ export const DigitalSignagePlayer: React.FC<DigitalSignagePlayerProps> = ({
   const shouldShowMenuBoard = !isShowingMedia;
   const displayCategory = currentCategory || settings.menuData?.categories[0];
 
+  // Memoizar settings para o MenuBoard para evitar re-renders desnecessários
+  const menuBoardSettings = useMemo(() => ({
+    ...settings,
+    activeCategory: displayCategory?.id
+  }), [settings, displayCategory?.id]);
+
   return (
     <Container onKeyDown={handleKeyPress} tabIndex={0}>
       <CategoryDisplay isVisible={shouldShowMenuBoard}>
         {displayCategory && settings.menuData ? (
-          <MenuBoard
-            settings={{
-              ...settings,
-              activeCategory: displayCategory.id
-            }}
-          />
+          <MenuBoard settings={menuBoardSettings} />
         ) : (
           <FallbackDisplay>
             <h1>🍽️ Carregando menu...</h1>
@@ -122,3 +123,6 @@ export const DigitalSignagePlayer: React.FC<DigitalSignagePlayerProps> = ({
     </Container>
   );
 };
+
+// Memoizar componente para evitar re-renders desnecessários
+export const DigitalSignagePlayer = React.memo(DigitalSignagePlayerComponent);

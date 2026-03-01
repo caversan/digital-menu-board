@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import type { MenuBoardSettings } from '../../../shared/types';
+import { MenuItemCard } from './MenuItemCard';
 import {
   BoardContainer,
   Header,
@@ -11,32 +12,38 @@ import {
   MenuContent,
   CategoryDescription,
   ItemsGrid,
-  MenuItem,
-  ItemImage,
-  ItemContent,
-  ItemHeader,
-  ItemName,
-  ItemPrice,
-  ItemDescription,
-  BadgesContainer,
-  Badge,
 } from './MenuBoard.styles';
 
 interface MenuBoardProps {
   settings: MenuBoardSettings;
 }
 
-export const MenuBoard: React.FC<MenuBoardProps> = ({ settings }) => {
+const MenuBoardComponent: React.FC<MenuBoardProps> = ({ settings }) => {
   const { menuData, layout, activeCategory } = settings;
   
-  // Filtrar categoria ativa ou usar primeira categoria
-  const currentCategory = activeCategory 
-    ? menuData.categories.find(cat => cat.id === activeCategory)
-    : menuData.categories[0];
+  // Filtrar categoria ativa ou usar primeira categoria (memoizado)
+  const currentCategory = useMemo(() => {
+    return activeCategory 
+      ? menuData.categories.find(cat => cat.id === activeCategory)
+      : menuData.categories[0];
+  }, [activeCategory, menuData.categories]);
   
-  const categoryItems = menuData.items.filter(item => 
-    item.categoryId === currentCategory?.id && item.isActive
-  ).slice(0, layout.itemsPerPage); // Limitar itens por página
+  // Filtrar itens da categoria (memoizado)
+  const categoryItems = useMemo(() => {
+    return menuData.items
+      .filter(item => item.categoryId === currentCategory?.id && item.isActive)
+      .slice(0, layout.itemsPerPage);
+  }, [menuData.items, currentCategory?.id, layout.itemsPerPage]);
+
+  // Callbacks para handlers de imagem
+  const handleLogoError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
+    console.error('❌ Erro ao carregar logo:', menuData.logoUrl);
+    e.currentTarget.style.display = 'none';
+  }, [menuData.logoUrl]);
+
+  const handleLogoLoad = useCallback(() => {
+    console.log('✅ Logo carregado com sucesso!');
+  }, []);
 
   return (
     <BoardContainer>
@@ -46,13 +53,8 @@ export const MenuBoard: React.FC<MenuBoardProps> = ({ settings }) => {
             <RestaurantLogo 
               src={menuData.logoUrl} 
               alt={`${menuData.name} logo`}
-              onError={(e) => {
-                console.error('❌ Erro ao carregar logo:', menuData.logoUrl);
-                e.currentTarget.style.display = 'none';
-              }}
-              onLoad={() => {
-                console.log('✅ Logo carregado com sucesso!');
-              }}
+              onError={handleLogoError}
+              onLoad={handleLogoLoad}
             />
           )}
           <RestaurantText>
@@ -71,38 +73,15 @@ export const MenuBoard: React.FC<MenuBoardProps> = ({ settings }) => {
         
         <ItemsGrid columns={layout.columns}>
           {categoryItems.map((item) => (
-            <MenuItem
-              key={item.id}
-              $highlighted={item.isHighlighted}
-              $hasImage={layout.showImages && !!item.imageUrl}
-            >
-              {layout.showImages && item.imageUrl && (
-                <ItemImage src={item.imageUrl} alt={item.name} />
-              )}
-              <ItemContent>
-                <ItemHeader>
-                  <ItemName>{item.name}</ItemName>
-                  {layout.showPrices && (
-                    <ItemPrice>R$ {item.price.toFixed(2)}</ItemPrice>
-                  )}
-                </ItemHeader>
-                {layout.showDescriptions && item.description && (
-                  <ItemDescription>{item.description}</ItemDescription>
-                )}
-                {item.badges && item.badges.length > 0 && (
-                  <BadgesContainer>
-                    {item.badges.map((badge, index) => (
-                      <Badge key={index}>{badge}</Badge>
-                    ))}
-                  </BadgesContainer>
-                )}
-              </ItemContent>
-            </MenuItem>
+            <MenuItemCard key={item.id} item={item} layout={layout} />
           ))}
         </ItemsGrid>
       </MenuContent>
     </BoardContainer>
   );
 };
+
+// Memoizar componente para evitar re-renders desnecessários
+export const MenuBoard = React.memo(MenuBoardComponent);
 
 export default MenuBoard;
