@@ -13,7 +13,7 @@ export const BoardContainer = styled.div`
 
 export const Header = styled.header`
   padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
-  background: linear-gradient(135deg, ${({ theme }) => theme.colors.primary} 0%, ${({ theme }) => theme.colors.secondary} 100%);
+  background: linear-gradient(135deg, #ac0000 0%, #ac0000 60%, #ffffff 70%, #00880d 100%);
   display: grid;
   grid-template-columns: 84px 1fr;
   gap: ${({ theme }) => theme.spacing.md};
