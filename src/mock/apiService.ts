@@ -199,38 +199,47 @@ const mockMediaItems: MediaItem[] = [
   },
   {
     id: 'media-002', 
-    type: 'image',
-    url: mockImage('u-1559329007-40df8a9345d8-w1920-h1080.jpg'),
-    title: '👨‍🍳 Pratos Especiais do Chef Italiano Matteo',
-    duration: 4,
+    type: 'video',
+    url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    title: '🎬 Experiência Gastronômica Única',
+    duration: 10,
     displayOrder: 2,
     isActive: true
   },
   {
     id: 'media-003',
-    type: 'image', 
-    url: mockImage('u-1424847651672-bf20a4b0982b-w1920-h1080.jpg'),
-    title: '🍷 Happy Hour - Terça a Sexta das 17h às 19h - 30% OFF em vinhos!',
-    duration: 6,
+    type: 'image',
+    url: mockImage('u-1559329007-40df8a9345d8-w1920-h1080.jpg'),
+    title: '👨‍🍳 Pratos Especiais do Chef Italiano Matteo',
+    duration: 4,
     displayOrder: 3,
     isActive: true
   },
   {
     id: 'media-004',
-    type: 'image',
-    url: mockImage('u-1517248135467-4c7edcad34c4-w1920-h1080.jpg'),
-    title: '🎉 Reservas para grupos - Espaço exclusivo para eventos especiais',
-    duration: 4,
+    type: 'image', 
+    url: mockImage('u-1424847651672-bf20a4b0982b-w1920-h1080.jpg'),
+    title: '🍷 Happy Hour - Terça a Sexta das 17h às 19h - 30% OFF em vinhos!',
+    duration: 6,
     displayOrder: 4,
     isActive: true
   },
   {
     id: 'media-005',
     type: 'image',
+    url: mockImage('u-1517248135467-4c7edcad34c4-w1920-h1080.jpg'),
+    title: '🎉 Reservas para grupos - Espaço exclusivo para eventos especiais',
+    duration: 4,
+    displayOrder: 5,
+    isActive: true
+  },
+  {
+    id: 'media-006',
+    type: 'image',
     url: mockImage('u-1571091718767-18b5b1457add-w1920-h1080.jpg'),
     title: '🍝 Massa fresca feita na casa diariamente - Tradição italiana autêntica',
     duration: 5,
-    displayOrder: 5,
+    displayOrder: 6,
     isActive: true
   }
 ];

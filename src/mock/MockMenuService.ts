@@ -177,20 +177,29 @@ const mockMediaItems: MediaItem[] = [
   },
   {
     id: 'media-002',
-    type: 'image',
-    url: mockImage('u-1559329007-40df8a9345d8-w1920-h1080.jpg'),
-    title: '👨‍🍳 Pratos Especiais do Chef Italiano Matteo',
-    duration: 4000,
+    type: 'video',
+    url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    title: '🎬 Experiência Gastronômica Única',
+    duration: 10000,
     displayOrder: 2,
     isActive: true
   },
   {
     id: 'media-003',
+    type: 'image',
+    url: mockImage('u-1559329007-40df8a9345d8-w1920-h1080.jpg'),
+    title: '👨‍🍳 Pratos Especiais do Chef Italiano Matteo',
+    duration: 4000,
+    displayOrder: 3,
+    isActive: true
+  },
+  {
+    id: 'media-004',
     type: 'image', 
     url: mockImage('u-1424847651672-bf20a4b0982b-w1920-h1080.jpg'),
     title: '🍷 Happy Hour - Terça a Sexta das 17h às 19h - 30% OFF em vinhos!',
     duration: 6000,
-    displayOrder: 3,
+    displayOrder: 4,
     isActive: true
   }
 ];

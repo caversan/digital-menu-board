@@ -11,15 +11,26 @@ export const mockMediaItems: MediaItem[] = [
     url: mockImage('u-1571091718767-18b5b1457add-w1920-h1080.jpg'),
     title: 'Promoção Combo Especial - 30% OFF',
     duration: 8,
-    order: 1
+    displayOrder: 1,
+    isActive: true
   },
   {
     id: 'media-2',
+    type: 'video',
+    url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    title: '🎬 Novidades Incríveis - Assista!',
+    duration: 10,
+    displayOrder: 2,
+    isActive: true
+  },
+  {
+    id: 'media-3',
     type: 'image',
     url: mockImage('u-1571091718767-18b5b1457add-w1920-h1080.jpg'),
     title: 'Novos Sabores Chegaram!',
     duration: 6,
-    order: 2
+    displayOrder: 3,
+    isActive: true
   }
 ];
 
