@@ -101,9 +101,11 @@ export const usePlaylist = (
         const newElapsedTime = prev.elapsedTime + 100; // Update every 100ms
         
         // Se for vídeo, avançar ao terminar OU por timeout (fallback)
+        // Se duration === 0, vídeo toca até o fim naturalmente, sem timeout
         const isVideo = currentItem.type === 'media' && (currentItem.data as MediaItem).type === 'video';
+        const videoDuration = (currentItem.data as MediaItem).duration || 0;
         const shouldAdvance = isVideo 
-          ? (videoEndedRef.current || newElapsedTime >= currentItem.duration)
+          ? (videoEndedRef.current || (videoDuration > 0 && newElapsedTime >= videoDuration))
           : newElapsedTime >= currentItem.duration;
         
         // Verificar se deve avançar para próximo item

@@ -37,6 +37,9 @@ export const useMenuData = (
         mediaCount: mediaItems.length
       });
 
+      // Duração padrão para exibição (parametrizado em ms)
+      const DISPLAY_TIME = 7000; // 7 segundos
+
       // Create new settings with menu and media data
       const newSettings = {
         restaurantId,
@@ -52,8 +55,8 @@ export const useMenuData = (
         menuData,
         playlist: {
           enabled: true,
-          categoryDisplayTime: 7000,
-          mediaDisplayTime: 7000,
+          categoryDisplayTime: DISPLAY_TIME,
+          mediaDisplayTime: DISPLAY_TIME,
           order: menuData.categories.map((cat) => cat.id),
           mediaItems,
         },
