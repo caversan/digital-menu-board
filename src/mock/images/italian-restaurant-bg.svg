@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- Textura de mármore italiano -->
+    <pattern id="marble" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect width="200" height="200" fill="#f8f4ef"/>
+      <path d="M0,50 Q50,40 100,50 T200,50" stroke="#e6ddd3" stroke-width="1.5" fill="none" opacity="0.4"/>
+      <path d="M0,120 Q50,110 100,120 T200,120" stroke="#d9cec1" stroke-width="1" fill="none" opacity="0.3"/>
+      <path d="M50,0 Q60,50 50,100 T50,200" stroke="#ebe3d8" stroke-width="1" fill="none" opacity="0.35"/>
+      <path d="M150,0 Q140,50 150,100 T150,200" stroke="#e0d5c8" stroke-width="0.8" fill="none" opacity="0.3"/>
+      <circle cx="30" cy="30" r="2" fill="#d4c4b0" opacity="0.2"/>
+      <circle cx="170" cy="80" r="1.5" fill="#cbbaa5" opacity="0.15"/>
+      <circle cx="90" cy="160" r="2.5" fill="#d8cabe" opacity="0.18"/>
+    </pattern>
+    
+    <!-- Gradiente sutil -->
+    <linearGradient id="overlay" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.02"/>
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.03"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background base com textura -->
+  <rect width="1920" height="1080" fill="url(#marble)"/>
+  
+  <!-- Overlay de gradiente -->
+  <rect width="1920" height="1080" fill="url(#overlay)"/>
+  
+  <!-- Vinhetas sutis nos cantos -->
+  <rect width="1920" height="1080" fill="radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.02) 100%)"/>
+</svg>

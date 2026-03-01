@@ -19,6 +19,7 @@ export interface MenuCategory {
   displayOrder: number; // Renomeado de 'order' para melhor clareza
   isActive: boolean; // Renomeado de 'isVisible' para melhor clareza
   imageUrl?: string; // Renomeado de 'image'
+  backgroundImage?: string; // Background personalizado para a categoria
   duration?: number; // Tempo de exibição em segundos
 }
 
