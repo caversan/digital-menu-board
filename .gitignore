@@ -119,6 +119,26 @@ config/production.json
 .cache/
 *.cache
 
+# Vite build cache
+.vite/
+.vite.build/
+
+# Vitest coverage
+coverage/
+.nyc_output/
+
+# IDE temporary files
+.DS_Store
+*.swp
+*.swo
+*~
+.#*
+
+# OS-specific
+Thumbs.db
+.AppleDouble
+.LSOverride
+
 # Backup files
 *.bak
 *.backup
@@ -130,5 +150,35 @@ src-tauri/Cargo.lock
 src-tauri/WixTools/
 src-tauri/gen/schemas/
 
-# Tauri bundles
+# Tauri bundles and build outputs
 src-tauri/target/release/bundle/
+src-tauri/target/debug/
+
+# Tauri icon generation
+app-icon.png
+app-icon/**
+
+# Rust toolchain
+src-tauri/.cargo/
+src-tauri/rust-toolchain.toml.bak
+
+# Tauri Windows-specific
+*.exe
+*.msi
+*.msix
+src-tauri/target/release/digital-menu-board.exe
+src-tauri/target/release/bundle/msi/
+src-tauri/target/release/bundle/nsis/
+
+# Windows resource files
+*.res
+*.rc
+
+# Temporary build files
+*.o
+*.a
+*.so
+*.dylib
+
+# Rust incremental compilation
+src-tauri/target/incremental/
