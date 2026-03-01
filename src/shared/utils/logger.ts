@@ -168,7 +168,7 @@ class Logger {
 
 // Export singleton instance
 export const logger = new Logger(
-  process.env.NODE_ENV === 'production' ? LogLevel.WARN : LogLevel.DEBUG,
+  import.meta.env.PROD ? LogLevel.WARN : LogLevel.DEBUG,
   true
 );
 

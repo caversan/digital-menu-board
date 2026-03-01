@@ -178,7 +178,7 @@ const mockMediaItems: MediaItem[] = [
   {
     id: 'media-002',
     type: 'video',
-    url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    url: mockImage('ForBiggerBlazes.mp4'),
     title: '🎬 Experiência Gastronômica Única',
     duration: 7000, // Será ignorado - vídeo toca até o fim
     displayOrder: 2,
@@ -228,8 +228,8 @@ export class MockMenuService extends BaseMenuService {
     
     await this.delay(800);
     
-    // Simulate occasional errors in development
-    if (Math.random() < 0.05 && this.simulateNetworkDelay) {
+    // Simulate occasional errors only when explicitly enabled
+    if (import.meta.env.VITE_ENABLE_SIMULATED_ERRORS === 'true' && Math.random() < 0.05 && this.simulateNetworkDelay) {
       logger.error('MockMenuService: Simulated error');
       throw new Error('Network error (simulated)');
     }

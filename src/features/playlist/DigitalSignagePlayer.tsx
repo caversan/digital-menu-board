@@ -37,6 +37,7 @@ const DigitalSignagePlayerComponent: React.FC<DigitalSignagePlayerProps> = ({
     skipToPrevious,
     restartPlaylist,
     onVideoEnded,
+    onMediaError,
     onVideoTimeUpdate,
     analytics
   } = usePlaylist(settings, { paused: !autoStart,
@@ -84,6 +85,7 @@ const DigitalSignagePlayerComponent: React.FC<DigitalSignagePlayerProps> = ({
             autoPlay
             muted
             onEnded={onVideoEnded}
+            onError={onMediaError}
             onTimeUpdate={handleVideoTimeUpdate}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
@@ -92,6 +94,7 @@ const DigitalSignagePlayerComponent: React.FC<DigitalSignagePlayerProps> = ({
           <img
             src={currentMedia.url}
             alt={currentMedia.title}
+            onError={onMediaError}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         )}

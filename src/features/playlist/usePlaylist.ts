@@ -100,10 +100,10 @@ export const usePlaylist = (
       setPlaylistState(prev => {
         const newElapsedTime = prev.elapsedTime + 100; // Update every 100ms
         
-        // Se for vídeo, aguardar o evento de término
+        // Se for vídeo, avançar ao terminar OU por timeout (fallback)
         const isVideo = currentItem.type === 'media' && (currentItem.data as MediaItem).type === 'video';
         const shouldAdvance = isVideo 
-          ? videoEndedRef.current 
+          ? (videoEndedRef.current || newElapsedTime >= currentItem.duration)
           : newElapsedTime >= currentItem.duration;
         
         // Verificar se deve avançar para próximo item
@@ -181,6 +181,11 @@ export const usePlaylist = (
     videoEndedRef.current = true;
   }, []);
 
+  // Callback para falhas de mídia (imagem/vídeo)
+  const onMediaError = useCallback(() => {
+    videoEndedRef.current = true;
+  }, []);
+
   // Callback para atualizar progresso do vídeo
   const onVideoTimeUpdate = useCallback((currentTime: number, duration: number) => {
     if (duration > 0) {
@@ -204,6 +209,7 @@ export const usePlaylist = (
     skipToPrevious,
     restartPlaylist,
     onVideoEnded,
+    onMediaError,
     onVideoTimeUpdate,
 
     // Analytics

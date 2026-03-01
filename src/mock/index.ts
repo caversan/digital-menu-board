@@ -17,7 +17,7 @@ export const mockMediaItems: MediaItem[] = [
   {
     id: 'media-2',
     type: 'video',
-    url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    url: mockImage('ForBiggerBlazes.mp4'),
     title: '🎬 Novidades Incríveis - Assista!',
     duration: 7, // Será ignorado - vídeo toca até o fim
     displayOrder: 2,

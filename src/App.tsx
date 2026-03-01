@@ -14,12 +14,12 @@ function App() {
   React.useEffect(() => {
     console.log('📱 App initialized', { 
       isOnline, 
-      environment: process.env.NODE_ENV,
+      environment: import.meta.env.MODE,
       hasSettings: !!settings
     });
     logger.info('App initialized', { 
       isOnline, 
-      environment: process.env.NODE_ENV 
+      environment: import.meta.env.MODE 
     });
   }, [isOnline, settings]);
 
@@ -68,7 +68,7 @@ function App() {
         <GlobalStyles />
         <DigitalSignagePlayer
           settings={settings}
-          showControls={process.env.NODE_ENV === 'development'}
+          showControls={import.meta.env.DEV}
           autoStart={true}
         />
       </ThemeProvider>
