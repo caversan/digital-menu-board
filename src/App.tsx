@@ -7,19 +7,25 @@ import { DigitalSignagePlayer } from './features/playlist/DigitalSignagePlayer';
 import { useMenuData, useOnline } from './shared/hooks';
 import { logger } from './shared/utils/logger';
 
-function App() {
-  const { settings, isLoading, error, refresh } = useMenuData();
+interface AppProps {
+  restaurantId?: string;
+  displayId?: string;
+  mode?: 'standalone' | 'fullscreen' | 'playlist';
+}
+
+function App({ restaurantId = 'default', displayId, mode = 'playlist' }: AppProps) {
+  const { settings, isLoading, error, refresh } = useMenuData(restaurantId);
   const isOnline = useOnline();
 
   React.useEffect(() => {
     console.log('📱 App initialized', { 
       isOnline, 
-      environment: import.meta.env.MODE,
+      environment: (import.meta as any).env.MODE,
       hasSettings: !!settings
     });
     logger.info('App initialized', { 
       isOnline, 
-      environment: import.meta.env.MODE 
+      environment: (import.meta as any).env.MODE 
     });
   }, [isOnline, settings]);
 
@@ -68,7 +74,7 @@ function App() {
         <GlobalStyles />
         <DigitalSignagePlayer
           settings={settings}
-          showControls={import.meta.env.DEV}
+          showControls={(import.meta as any).env.DEV}
           autoStart={true}
         />
       </ThemeProvider>

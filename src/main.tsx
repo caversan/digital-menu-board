@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 
 // Verificar se estamos em ambiente de TV ou desenvolvimento
-const isProduction = import.meta.env.PROD;
-const isDevelopment = import.meta.env.DEV;
+const isProduction = (import.meta as any).env.PROD;
+const isDevelopment = (import.meta as any).env.DEV;
 
 // Configurações específicas para TV/Digital signage
 if (isProduction) {
@@ -49,7 +49,8 @@ if (isProduction) {
 const urlParams = new URLSearchParams(window.location.search);
 const restaurantId = urlParams.get('restaurantId') || 'rest-1';
 const displayId = urlParams.get('displayId') || 'display-1';
-const mode = urlParams.get('mode') as 'signage' | 'development' || (isDevelopment ? 'development' : 'signage');
+const modeParam = urlParams.get('mode') || (isDevelopment ? 'development' : 'signage');
+const mode = (modeParam === 'development' ? 'playlist' : 'standalone') as 'standalone' | 'fullscreen' | 'playlist';
 
 // Log da configuração inicial
 console.log('Digital Signage iniciando...', {
