@@ -80,7 +80,6 @@ export const ItemsGrid = styled.div<{ columns: number }>`
   display: grid;
   grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
   gap: 2.5rem;
-  height: calc(100% - 150px);
   overflow: hidden;
 
   @media (orientation: portrait) {
@@ -112,7 +111,6 @@ export const ItemImage = styled.img`
 
 export const ItemContent = styled.div`
   flex: 1;
-  display: flex;
   flex-direction: column;
 `;
 
@@ -161,7 +159,7 @@ export const BadgesContainer = styled.div`
 
 export const Badge = styled.span`
   background: ${({ theme }) => theme.colors.accent};
-  color: white;
+  color: #1f2937;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 1rem;
